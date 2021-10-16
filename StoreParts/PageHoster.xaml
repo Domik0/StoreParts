@@ -1,0 +1,13 @@
+﻿<NavigationWindow x:Class="StoreParts.PageHoster"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreParts"
+        mc:Ignorable="d" Title="PageHoster"
+        WindowState="Maximized"
+        Height="830" Width="1440"
+        MinHeight="830" MinWidth="1440"
+        Source="StartPage.xaml"
+        ShowsNavigationUI="False">
+</NavigationWindow>
