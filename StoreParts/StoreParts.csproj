@@ -87,7 +87,7 @@
     <Compile Include="brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="CreateAccount.xaml.cs">
+    <Compile Include="Page\LogIn and SignUp\CreateAccount.xaml.cs">
       <DependentUpon>CreateAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
@@ -114,7 +114,7 @@
     <Compile Include="part.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="StartPage.xaml.cs">
+    <Compile Include="Page\LogIn and SignUp\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="store.cs">
@@ -168,7 +168,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CreateAccount.xaml">
+    <Page Include="Page\LogIn and SignUp\CreateAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,7 +180,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StartPage.xaml">
+    <Page Include="Page\LogIn and SignUp\StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +216,7 @@
     <Resource Include="Assets\windy.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Class\" />
     <Folder Include="Conventers\" />
   </ItemGroup>
   <ItemGroup>

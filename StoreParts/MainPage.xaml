@@ -11,12 +11,10 @@
 
     <Grid Background="#FFFFFF">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="150"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="ChooseRole.xaml"/>
+        <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" Source="ChooseRole.xaml"/>
     </Grid>
 </Page>

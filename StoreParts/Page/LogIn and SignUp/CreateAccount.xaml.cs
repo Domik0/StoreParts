@@ -20,7 +20,7 @@ namespace StoreParts
     /// <summary>
     /// Логика взаимодействия для CreateAccount.xaml
     /// </summary>
-    public partial class CreateAccount : Page
+    public partial class CreateAccount : System.Windows.Controls.Page
     {
         bool CustomCheckBoxArgBool = false;
         bool selectRole;
