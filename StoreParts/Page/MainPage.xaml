@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:StoreParts"
+      xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
       d:DesignHeight="830" d:DesignWidth="1440"
       Height="830" Width="1440"
@@ -14,7 +14,7 @@
             <RowDefinition Height="150"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="ChooseRole.xaml"/>
-        <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" Source="ChooseRole.xaml"/>
+        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="Header/Header.xaml"/>
+        <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" />
     </Grid>
 </Page>

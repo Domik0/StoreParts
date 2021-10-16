@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace StoreParts
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class MainPage : System.Windows.Controls.Page
     {
         public MainPage()
         {

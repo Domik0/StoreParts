@@ -98,6 +98,7 @@ namespace StoreParts.Page.LogIn_and_SignUp
 
         private void LogInClick(object sender, MouseButtonEventArgs e)
         {
+            NavigationService.Navigate(new MainPage());
             //var creators = App.db.Creators.Where(c => c.PhoneNumber == UserNameText.Text).ToList();
             //var clients = App.db.Clients.Where(c => c.PhoneNumber == UserNameText.Text).ToList();
             //if (creators.Count() != 0 && creators.First().Password == PasswordBoxText.Password)
