@@ -12,6 +12,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="45" />
         </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="45" />
+        </EntityType>
         <EntityType Name="orders">
           <Key>
             <PropertyRef Name="id" />
@@ -29,7 +36,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="45" />
           <Property Name="id_brand" Type="int" />
-          <Property Name="type" Type="varchar" MaxLength="45" />
+          <Property Name="id_category" Type="int" />
           <Property Name="description" Type="varchar" MaxLength="255" />
           <Property Name="retail_price" Type="int" />
           <Property Name="wholesale_price" Type="int" />
@@ -55,8 +62,8 @@
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="password" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "def.storeparts.waybills" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.storeparts.waybills' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="waybills">
           <Key>
             <PropertyRef Name="id_order" />
@@ -102,6 +109,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_part_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="parts" Type="Self.parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parts">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_waybills_id_order">
           <End Role="orders" Type="Self.orders" Multiplicity="1" />
           <End Role="waybills" Type="Self.waybills" Multiplicity="*" />
@@ -128,6 +147,7 @@
         </Association>
         <EntityContainer Name="Хранилище storepartsModelContainer">
           <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
@@ -149,6 +169,10 @@
           </AssociationSet>
           <AssociationSet Name="fk_part_brand" Association="Self.fk_part_brand">
             <End Role="brands" EntitySet="brands" />
+            <End Role="parts" EntitySet="parts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_part_category" Association="Self.fk_part_category">
+            <End Role="category" EntitySet="category" />
             <End Role="parts" EntitySet="parts" />
           </AssociationSet>
           <AssociationSet Name="fk_waybills_id_order" Association="Self.fk_waybills_id_order">
@@ -199,6 +223,8 @@
           <Property Name="count_storage" Type="Int32" />
           <NavigationProperty Name="brand" Relationship="Self.fk_part_brand" FromRole="parts" ToRole="brands" />
           <NavigationProperty Name="waybills" Relationship="Self.fk_waybills_part" FromRole="parts" ToRole="waybills" />
+          <Property Name="id_category" Type="Int32" />
+          <NavigationProperty Name="category" Relationship="storepartsModel.fk_part_category" FromRole="part" ToRole="category" />
         </EntityType>
         <EntityType Name="store">
           <Key>
@@ -284,6 +310,11 @@
             <End Role="order" EntitySet="orders" />
             <End Role="waybill" EntitySet="waybills" />
           </AssociationSet>
+          <EntitySet Name="categories" EntityType="storepartsModel.category" />
+          <AssociationSet Name="fk_part_category" Association="storepartsModel.fk_part_category">
+            <End Role="category" EntitySet="categories" />
+            <End Role="part" EntitySet="parts" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="fk_order_id_store">
           <End Type="storepartsModel.store" Role="store" Multiplicity="0..1" />
@@ -321,6 +352,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="parts" Relationship="storepartsModel.fk_part_category" FromRole="category" ToRole="part" />
+        </EntityType>
+        <Association Name="fk_part_category">
+          <End Type="storepartsModel.category" Role="category" Multiplicity="0..1" />
+          <End Type="storepartsModel.part" Role="part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="part">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -349,10 +400,10 @@
           <EntitySetMapping Name="parts">
             <EntityTypeMapping TypeName="storepartsModel.part">
               <MappingFragment StoreEntitySet="parts">
+                <ScalarProperty Name="id_category" ColumnName="id_category" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="id_brand" ColumnName="id_brand" />
-                <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="retail_price" ColumnName="retail_price" />
                 <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
@@ -388,6 +439,14 @@
                 <ScalarProperty Name="id_order" ColumnName="id_order" />
                 <ScalarProperty Name="id_part" ColumnName="id_part" />
                 <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="storepartsModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

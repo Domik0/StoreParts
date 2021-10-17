@@ -18,11 +18,16 @@ namespace StoreParts.Page
     /// <summary>
     /// Interaction logic for CategoryPage.xaml
     /// </summary>
-    public partial class CategoryPage : Page
+    public partial class CategoryPage : System.Windows.Controls.Page
     {
         public CategoryPage()
         {
             InitializeComponent();
+        }
+
+        private void SelectCategoryClick(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

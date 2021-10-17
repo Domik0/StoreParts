@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="64680e1ac267419fa67b71b6aa28ef40" Name="Diagram1">
-        <EntityTypeShape EntityType="storepartsModel.brand" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.brand" Width="1.5" PointX="0.75" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.order" Width="1.5" PointX="0.875" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.part" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.store" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.user" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
@@ -16,6 +16,8 @@
         <AssociationConnector Association="storepartsModel.fk_order_id_store" />
         <AssociationConnector Association="storepartsModel.fk_order_id_user" />
         <AssociationConnector Association="storepartsModel.fk_waybills_id_order" />
+        <EntityTypeShape EntityType="storepartsModel.category" Width="1.5" PointX="0.625" PointY="2.875" />
+        <AssociationConnector Association="storepartsModel.fk_part_category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

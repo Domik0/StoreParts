@@ -87,6 +87,9 @@
     <Compile Include="brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="category.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Page\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,9 @@
     </Compile>
     <Compile Include="Page\MainСategoryPage.xaml.cs">
       <DependentUpon>MainСategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\StartPageScreen.xaml.cs">
+      <DependentUpon>StartPageScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="part.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -205,6 +211,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page\StartPageScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Button_close.png" />
@@ -247,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\basket.png" />
+    <Resource Include="Image\arrow.png" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>

@@ -7,13 +7,55 @@
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="500"
       Height="680" Width="500"
-      Title="CategoryPage">
+      Title="CategoryPage"
+      Background="#FFFFFF">
 
-    <Grid Background="#FFFFFF">
-        <TextBlock Text="Каталог товаров" Foreground="#ff561c" FontWeight="Bold" FontSize="25"
-                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10"/>
+    <StackPanel Margin="15">
+        <TextBlock Text="Каталог товаров" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,20"/>
 
-        
+        <ListView Background="#C4C4C4"
+                  BorderThickness="0"
+                  x:Name="CategoryListView"
+                  SelectionChanged="SelectCategoryClick"
+                  Margin="30">
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemCategory" TargetType="ListViewItem">
+                    <Border x:Name="ListViewElement" CornerRadius="10" Background="#C4C4C4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="" Foreground="Black" FontWeight="Bold" FontSize="25"
+                                       VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,0"/>
 
-    </Grid>
+                            <Image Grid.Column="1" Source="/Image/arrow.png" Width="40"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemCategory}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Stretch"
+                                    IsItemsHost="True">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+
+    </StackPanel>
 </Page>

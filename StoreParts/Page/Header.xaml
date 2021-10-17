@@ -20,7 +20,8 @@
         <TextBlock Text="StoreParts" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"
                    VerticalAlignment="Center" Margin="50"/>
 
-        <Border CornerRadius="30" BorderBrush="#ff850a" BorderThickness="1.5" UseLayoutRounding="True" Height="56" Width="473" Grid.Column="1" VerticalAlignment="Center" Padding="2">
+        <Border CornerRadius="30" BorderBrush="#ff850a" BorderThickness="1.5" UseLayoutRounding="True"
+                Height="56" Width="473" Grid.Column="1" VerticalAlignment="Center" Padding="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

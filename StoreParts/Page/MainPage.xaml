@@ -14,7 +14,7 @@
             <RowDefinition Height="150"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="Header/Header.xaml"/>
-        <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" />
+        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="Header.xaml"/>
+        <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" Source="MainСategoryPage.xaml"/>
     </Grid>
 </Page>

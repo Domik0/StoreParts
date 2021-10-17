@@ -12,13 +12,18 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class waybill
+    public partial class category
     {
-        public int id_order { get; set; }
-        public int id_part { get; set; }
-        public Nullable<int> count { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public category()
+        {
+            this.parts = new HashSet<part>();
+        }
     
-        public virtual part part { get; set; }
-        public virtual order order { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<part> parts { get; set; }
     }
 }

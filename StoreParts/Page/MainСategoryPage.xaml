@@ -16,6 +16,6 @@
         </Grid.ColumnDefinitions>
 
         <Frame Grid.Column="0" x:Name="Category" x:FieldModifier="public" Source="CategoryPage.xaml"/>
-        <Frame Grid.Column="1" x:Name="Main" x:FieldModifier="public"/>
+        <Frame Grid.Column="1" x:Name="Main" x:FieldModifier="public" Source="StartPageScreen.xaml"/>
     </Grid>
 </Page>

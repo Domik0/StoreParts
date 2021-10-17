@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace StoreParts.Page
 {
     /// <summary>
-    /// Interaction logic for MainСategoryPage.xaml
+    /// Interaction logic for StartPageScreen.xaml
     /// </summary>
-    public partial class MainСategoryPage : System.Windows.Controls.Page
+    public partial class StartPageScreen : System.Windows.Controls.Page
     {
-        public MainСategoryPage()
+        public StartPageScreen()
         {
             InitializeComponent();
-
         }
     }
 }
