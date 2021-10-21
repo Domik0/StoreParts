@@ -4,26 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище storepartsModel" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="storepartsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="brands">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="45" />
         </EntityType>
-        <EntityType Name="category">
+        <EntityType Name="device">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="orders">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="id_store" Type="int" />
           <Property Name="id_user" Type="int" />
           <Property Name="comments" Type="varchar" MaxLength="255" />
@@ -33,20 +33,28 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="45" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" />
           <Property Name="id_brand" Type="int" />
-          <Property Name="id_category" Type="int" />
-          <Property Name="description" Type="varchar" MaxLength="255" />
-          <Property Name="retail_price" Type="int" />
-          <Property Name="wholesale_price" Type="int" />
+          <Property Name="id_spare_part" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="1024" />
+          <Property Name="retail_price" Type="double" />
+          <Property Name="wholesale_price" Type="double" />
           <Property Name="count_storage" Type="int" />
+        </EntityType>
+        <EntityType Name="spare_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_device" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="store">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="city" Type="varchar" MaxLength="45" />
           <Property Name="address" Type="varchar" MaxLength="255" />
           <Property Name="time_work" Type="varchar" MaxLength="255" />
@@ -56,24 +64,22 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" />
           <Property Name="phone" Type="varchar" MaxLength="16" />
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="password" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'def.storeparts.waybills' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="waybills">
+        <EntityType Name="waybill">
           <Key>
             <PropertyRef Name="id_order" />
             <PropertyRef Name="id_part" />
           </Key>
           <Property Name="id_order" Type="int" Nullable="false" />
           <Property Name="id_part" Type="int" Nullable="false" />
-          <Property Name="count" Type="int" />
+          <Property Name="count" Type="varchar" MaxLength="45" />
         </EntityType>
-        <Association Name="fk_order_id_store">
+        <Association Name="fk_orders_store">
           <End Role="store" Type="Self.store" Multiplicity="0..1" />
           <End Role="orders" Type="Self.orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,7 +91,7 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_order_id_user">
+        <Association Name="fk_orders_user">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="orders" Type="Self.orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -97,7 +103,7 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_part_brand">
+        <Association Name="fk_parts_brand">
           <End Role="brands" Type="Self.brands" Multiplicity="0..1" />
           <End Role="parts" Type="Self.parts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -109,82 +115,94 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_part_category">
-          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+        <Association Name="fk_parts_sparepart">
+          <End Role="spare_part" Type="Self.spare_part" Multiplicity="0..1" />
           <End Role="parts" Type="Self.parts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="category">
+            <Principal Role="spare_part">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="parts">
-              <PropertyRef Name="id_category" />
+              <PropertyRef Name="id_spare_part" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybills_id_order">
+        <Association Name="fk_sparepart_device">
+          <End Role="device" Type="Self.device" Multiplicity="0..1" />
+          <End Role="spare_part" Type="Self.spare_part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="spare_part">
+              <PropertyRef Name="id_device" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_waybill_order">
           <End Role="orders" Type="Self.orders" Multiplicity="1" />
-          <End Role="waybills" Type="Self.waybills" Multiplicity="*" />
+          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="orders">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="waybills">
+            <Dependent Role="waybill">
               <PropertyRef Name="id_order" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybills_id_part">
+        <Association Name="fk_waybill_part">
           <End Role="parts" Type="Self.parts" Multiplicity="1" />
-          <End Role="waybills" Type="Self.waybills" Multiplicity="*" />
+          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="parts">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="waybills">
+            <Dependent Role="waybill">
               <PropertyRef Name="id_part" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище storepartsModelContainer">
+        <EntityContainer Name="storepartsModelStoreContainer">
           <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="category" EntityType="Self.category" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="waybills" EntityType="Self.waybills" store:Type="Tables" store:Schema="storeparts">
-            <DefiningQuery>SELECT 
-`waybills`.`id_order`, 
-`waybills`.`id_part`, 
-`waybills`.`count`
- FROM `waybills` AS `waybills`</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="fk_order_id_store" Association="Self.fk_order_id_store">
+          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="storeparts" store:Type="Tables" />
+          <AssociationSet Name="fk_orders_store" Association="Self.fk_orders_store">
             <End Role="store" EntitySet="store" />
             <End Role="orders" EntitySet="orders" />
           </AssociationSet>
-          <AssociationSet Name="fk_order_id_user" Association="Self.fk_order_id_user">
+          <AssociationSet Name="fk_orders_user" Association="Self.fk_orders_user">
             <End Role="users" EntitySet="users" />
             <End Role="orders" EntitySet="orders" />
           </AssociationSet>
-          <AssociationSet Name="fk_part_brand" Association="Self.fk_part_brand">
+          <AssociationSet Name="fk_parts_brand" Association="Self.fk_parts_brand">
             <End Role="brands" EntitySet="brands" />
             <End Role="parts" EntitySet="parts" />
           </AssociationSet>
-          <AssociationSet Name="fk_part_category" Association="Self.fk_part_category">
-            <End Role="category" EntitySet="category" />
+          <AssociationSet Name="fk_parts_sparepart" Association="Self.fk_parts_sparepart">
+            <End Role="spare_part" EntitySet="spare_part" />
             <End Role="parts" EntitySet="parts" />
           </AssociationSet>
-          <AssociationSet Name="fk_waybills_id_order" Association="Self.fk_waybills_id_order">
+          <AssociationSet Name="fk_sparepart_device" Association="Self.fk_sparepart_device">
+            <End Role="device" EntitySet="device" />
+            <End Role="spare_part" EntitySet="spare_part" />
+          </AssociationSet>
+          <AssociationSet Name="fk_waybill_order" Association="Self.fk_waybill_order">
             <End Role="orders" EntitySet="orders" />
-            <End Role="waybills" EntitySet="waybills" />
+            <End Role="waybill" EntitySet="waybill" />
           </AssociationSet>
-          <AssociationSet Name="fk_waybills_id_part" Association="Self.fk_waybills_id_part">
+          <AssociationSet Name="fk_waybill_part" Association="Self.fk_waybill_part">
             <End Role="parts" EntitySet="parts" />
-            <End Role="waybills" EntitySet="waybills" />
+            <End Role="waybill" EntitySet="waybill" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storepartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -192,61 +210,78 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="parts" Relationship="Self.fk_part_brand" FromRole="brands" ToRole="parts" />
+          <NavigationProperty Name="parts" Relationship="Self.fk_parts_brand" FromRole="brands" ToRole="parts" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="spare_part" Relationship="Self.fk_sparepart_device" FromRole="device" ToRole="spare_part" />
         </EntityType>
         <EntityType Name="order">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="id_store" Type="Int32" />
           <Property Name="id_user" Type="Int32" />
           <Property Name="comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="type_pay_online" Type="Boolean" />
-          <NavigationProperty Name="store" Relationship="storepartsModel.fk_order_id_store" FromRole="order" ToRole="store" />
-          <NavigationProperty Name="user" Relationship="storepartsModel.fk_order_id_user" FromRole="order" ToRole="user" />
-          <NavigationProperty Name="waybills" Relationship="storepartsModel.fk_waybills_id_order" FromRole="order" ToRole="waybill" />
+          <NavigationProperty Name="store" Relationship="Self.fk_orders_store" FromRole="orders" ToRole="store" />
+          <NavigationProperty Name="user" Relationship="Self.fk_orders_user" FromRole="orders" ToRole="users" />
+          <NavigationProperty Name="waybills" Relationship="Self.fk_waybill_order" FromRole="orders" ToRole="waybill" />
         </EntityType>
         <EntityType Name="part">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="id_brand" Type="Int32" />
-          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="retail_price" Type="Int32" />
-          <Property Name="wholesale_price" Type="Int32" />
+          <Property Name="id_spare_part" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="retail_price" Type="Double" />
+          <Property Name="wholesale_price" Type="Double" />
           <Property Name="count_storage" Type="Int32" />
-          <NavigationProperty Name="brand" Relationship="Self.fk_part_brand" FromRole="parts" ToRole="brands" />
-          <NavigationProperty Name="waybills" Relationship="Self.fk_waybills_part" FromRole="parts" ToRole="waybills" />
-          <Property Name="id_category" Type="Int32" />
-          <NavigationProperty Name="category" Relationship="storepartsModel.fk_part_category" FromRole="part" ToRole="category" />
+          <NavigationProperty Name="brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
+          <NavigationProperty Name="spare_part" Relationship="Self.fk_parts_sparepart" FromRole="parts" ToRole="spare_part" />
+          <NavigationProperty Name="waybills" Relationship="Self.fk_waybill_part" FromRole="parts" ToRole="waybill" />
+        </EntityType>
+        <EntityType Name="spare_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_device" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="device" Relationship="Self.fk_sparepart_device" FromRole="spare_part" ToRole="device" />
+          <NavigationProperty Name="parts" Relationship="Self.fk_parts_sparepart" FromRole="spare_part" ToRole="parts" />
         </EntityType>
         <EntityType Name="store">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="time_work" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="orders" Relationship="storepartsModel.fk_order_id_store" FromRole="store" ToRole="order" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_orders_store" FromRole="store" ToRole="orders" />
         </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="orders" Relationship="storepartsModel.fk_order_id_user" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_orders_user" FromRole="users" ToRole="orders" />
         </EntityType>
         <EntityType Name="waybill">
           <Key>
@@ -255,11 +290,11 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
           </Key>
           <Property Name="id_order" Type="Int32" Nullable="false" />
           <Property Name="id_part" Type="Int32" Nullable="false" />
-          <Property Name="count" Type="Int32" />
-          <NavigationProperty Name="part" Relationship="Self.fk_waybills_part" FromRole="waybills" ToRole="parts" />
-          <NavigationProperty Name="order" Relationship="storepartsModel.fk_waybills_id_order" FromRole="waybill" ToRole="order" />
+          <Property Name="count" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="order" Relationship="Self.fk_waybill_order" FromRole="waybill" ToRole="orders" />
+          <NavigationProperty Name="part" Relationship="Self.fk_waybill_part" FromRole="waybill" ToRole="parts" />
         </EntityType>
-        <Association Name="fk_part_brand">
+        <Association Name="fk_parts_brand">
           <End Role="brands" Type="Self.brand" Multiplicity="0..1" />
           <End Role="parts" Type="Self.part" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,80 +306,47 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybills_part">
-          <End Role="parts" Type="Self.part" Multiplicity="1" />
-          <End Role="waybills" Type="Self.waybill" Multiplicity="*" />
+        <Association Name="fk_sparepart_device">
+          <End Role="device" Type="Self.device" Multiplicity="0..1" />
+          <End Role="spare_part" Type="Self.spare_part" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="parts">
+            <Principal Role="device">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="waybills">
-              <PropertyRef Name="id_part" />
+            <Dependent Role="spare_part">
+              <PropertyRef Name="id_device" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="storepartsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="brands" EntityType="Self.brand" />
-          <EntitySet Name="orders" EntityType="Self.order" />
-          <EntitySet Name="parts" EntityType="Self.part" />
-          <EntitySet Name="stores" EntityType="Self.store" />
-          <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="waybills" EntityType="Self.waybill" />
-          <AssociationSet Name="fk_part_brand" Association="Self.fk_part_brand">
-            <End Role="brands" EntitySet="brands" />
-            <End Role="parts" EntitySet="parts" />
-          </AssociationSet>
-          <AssociationSet Name="fk_waybills_part" Association="Self.fk_waybills_part">
-            <End Role="parts" EntitySet="parts" />
-            <End Role="waybills" EntitySet="waybills" />
-          </AssociationSet>
-          <AssociationSet Name="fk_order_id_store" Association="storepartsModel.fk_order_id_store">
-            <End Role="store" EntitySet="stores" />
-            <End Role="order" EntitySet="orders" />
-          </AssociationSet>
-          <AssociationSet Name="fk_order_id_user" Association="storepartsModel.fk_order_id_user">
-            <End Role="user" EntitySet="users" />
-            <End Role="order" EntitySet="orders" />
-          </AssociationSet>
-          <AssociationSet Name="fk_waybills_id_order" Association="storepartsModel.fk_waybills_id_order">
-            <End Role="order" EntitySet="orders" />
-            <End Role="waybill" EntitySet="waybills" />
-          </AssociationSet>
-          <EntitySet Name="categories" EntityType="storepartsModel.category" />
-          <AssociationSet Name="fk_part_category" Association="storepartsModel.fk_part_category">
-            <End Role="category" EntitySet="categories" />
-            <End Role="part" EntitySet="parts" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="fk_order_id_store">
-          <End Type="storepartsModel.store" Role="store" Multiplicity="0..1" />
-          <End Type="storepartsModel.order" Role="order" Multiplicity="*" />
+        <Association Name="fk_orders_store">
+          <End Role="store" Type="Self.store" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="store">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="order">
+            <Dependent Role="orders">
               <PropertyRef Name="id_store" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_order_id_user">
-          <End Type="storepartsModel.user" Role="user" Multiplicity="0..1" />
-          <End Type="storepartsModel.order" Role="order" Multiplicity="*" />
+        <Association Name="fk_orders_user">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="user">
+            <Principal Role="users">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="order">
+            <Dependent Role="orders">
               <PropertyRef Name="id_user" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybills_id_order">
-          <End Type="storepartsModel.order" Role="order" Multiplicity="1" />
-          <End Type="storepartsModel.waybill" Role="waybill" Multiplicity="*" />
+        <Association Name="fk_waybill_order">
+          <End Role="orders" Type="Self.order" Multiplicity="1" />
+          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="order">
+            <Principal Role="orders">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="waybill">
@@ -352,35 +354,85 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="category">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="parts" Relationship="storepartsModel.fk_part_category" FromRole="category" ToRole="part" />
-        </EntityType>
-        <Association Name="fk_part_category">
-          <End Type="storepartsModel.category" Role="category" Multiplicity="0..1" />
-          <End Type="storepartsModel.part" Role="part" Multiplicity="*" />
+        <Association Name="fk_parts_sparepart">
+          <End Role="spare_part" Type="Self.spare_part" Multiplicity="0..1" />
+          <End Role="parts" Type="Self.part" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="category">
+            <Principal Role="spare_part">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="part">
-              <PropertyRef Name="id_category" />
+            <Dependent Role="parts">
+              <PropertyRef Name="id_spare_part" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_waybill_part">
+          <End Role="parts" Type="Self.part" Multiplicity="1" />
+          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="waybill">
+              <PropertyRef Name="id_part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="storepartsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="brands" EntityType="Self.brand" />
+          <EntitySet Name="devices" EntityType="Self.device" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="parts" EntityType="Self.part" />
+          <EntitySet Name="spare_part" EntityType="Self.spare_part" />
+          <EntitySet Name="stores" EntityType="Self.store" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="waybills" EntityType="Self.waybill" />
+          <AssociationSet Name="fk_parts_brand" Association="Self.fk_parts_brand">
+            <End Role="brands" EntitySet="brands" />
+            <End Role="parts" EntitySet="parts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sparepart_device" Association="Self.fk_sparepart_device">
+            <End Role="device" EntitySet="devices" />
+            <End Role="spare_part" EntitySet="spare_part" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_store" Association="Self.fk_orders_store">
+            <End Role="store" EntitySet="stores" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_user" Association="Self.fk_orders_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_waybill_order" Association="Self.fk_waybill_order">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="waybill" EntitySet="waybills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parts_sparepart" Association="Self.fk_parts_sparepart">
+            <End Role="spare_part" EntitySet="spare_part" />
+            <End Role="parts" EntitySet="parts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_waybill_part" Association="Self.fk_waybill_part">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="waybill" EntitySet="waybills" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище storepartsModelContainer" CdmEntityContainer="storepartsEntities">
+        <EntityContainerMapping StorageEntityContainer="storepartsModelStoreContainer" CdmEntityContainer="storepartsEntities">
           <EntitySetMapping Name="brands">
             <EntityTypeMapping TypeName="storepartsModel.brand">
               <MappingFragment StoreEntitySet="brands">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="storepartsModel.device">
+              <MappingFragment StoreEntitySet="device">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
               </MappingFragment>
@@ -400,14 +452,23 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
           <EntitySetMapping Name="parts">
             <EntityTypeMapping TypeName="storepartsModel.part">
               <MappingFragment StoreEntitySet="parts">
-                <ScalarProperty Name="id_category" ColumnName="id_category" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="id_brand" ColumnName="id_brand" />
+                <ScalarProperty Name="id_spare_part" ColumnName="id_spare_part" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="retail_price" ColumnName="retail_price" />
                 <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
                 <ScalarProperty Name="count_storage" ColumnName="count_storage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spare_part">
+            <EntityTypeMapping TypeName="storepartsModel.spare_part">
+              <MappingFragment StoreEntitySet="spare_part">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_device" ColumnName="id_device" />
+                <ScalarProperty Name="title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,18 +496,10 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
           </EntitySetMapping>
           <EntitySetMapping Name="waybills">
             <EntityTypeMapping TypeName="storepartsModel.waybill">
-              <MappingFragment StoreEntitySet="waybills">
+              <MappingFragment StoreEntitySet="waybill">
                 <ScalarProperty Name="id_order" ColumnName="id_order" />
                 <ScalarProperty Name="id_part" ColumnName="id_part" />
                 <ScalarProperty Name="count" ColumnName="count" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="categories">
-            <EntityTypeMapping TypeName="storepartsModel.category">
-              <MappingFragment StoreEntitySet="category">
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -467,7 +520,7 @@ warning 6002: The table/view 'def.storeparts.waybills' does not have a primary k
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

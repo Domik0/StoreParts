@@ -16,9 +16,9 @@ namespace StoreParts
     {
         public int id_order { get; set; }
         public int id_part { get; set; }
-        public Nullable<int> count { get; set; }
+        public string count { get; set; }
     
-        public virtual part part { get; set; }
         public virtual order order { get; set; }
+        public virtual part part { get; set; }
     }
 }

@@ -87,20 +87,8 @@
     <Compile Include="brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="category.cs">
+    <Compile Include="device.cs">
       <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Page\CategoryPage.xaml.cs">
-      <DependentUpon>CategoryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page\Header.xaml.cs">
-      <DependentUpon>Header.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page\LogInAndSignUp\CreateAccount.xaml.cs">
-      <DependentUpon>CreateAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -120,17 +108,35 @@
     <Compile Include="order.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Page\CategoryPage.xaml.cs">
+      <DependentUpon>CategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\LogInAndSignUp\CreateAccount.xaml.cs">
+      <DependentUpon>CreateAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\MainСategoryPage.xaml.cs">
       <DependentUpon>MainСategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\PageListParts.xaml.cs">
+      <DependentUpon>PageListParts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\StartPageScreen.xaml.cs">
       <DependentUpon>StartPageScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page\LogInAndSignUp\StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="part.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Page\LogInAndSignUp\StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
+    <Compile Include="spare_part.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="store.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -211,6 +217,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page\PageListParts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\StartPageScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,19 +268,21 @@
   <ItemGroup>
     <Resource Include="Image\basket.png" />
     <Resource Include="Image\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
       <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

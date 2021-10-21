@@ -12,26 +12,20 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class part
+    public partial class spare_part
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public part()
+        public spare_part()
         {
-            this.waybills = new HashSet<waybill>();
+            this.parts = new HashSet<part>();
         }
     
         public int id { get; set; }
+        public Nullable<int> id_device { get; set; }
         public string title { get; set; }
-        public Nullable<int> id_brand { get; set; }
-        public Nullable<int> id_spare_part { get; set; }
-        public string description { get; set; }
-        public Nullable<double> retail_price { get; set; }
-        public Nullable<double> wholesale_price { get; set; }
-        public Nullable<int> count_storage { get; set; }
     
-        public virtual brand brand { get; set; }
-        public virtual spare_part spare_part { get; set; }
+        public virtual device device { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<waybill> waybills { get; set; }
+        public virtual ICollection<part> parts { get; set; }
     }
 }
