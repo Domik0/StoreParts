@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a434571fff394ea1b47902cf769cf49f" Name="Diagram1">
-        <EntityTypeShape EntityType="storepartsModel.brand" Width="1.5" PointX="2.875" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.brand" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.device" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.order" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="storepartsModel.part" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
@@ -20,6 +20,8 @@
         <AssociationConnector Association="storepartsModel.fk_waybill_order" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_parts_sparepart" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_waybill_part" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="storepartsModel.image" Width="1.5" PointX="2.875" PointY="3.875" />
+        <AssociationConnector Association="storepartsModel.fk_image_part" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

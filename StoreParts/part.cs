@@ -18,6 +18,7 @@ namespace StoreParts
         public part()
         {
             this.waybills = new HashSet<waybill>();
+            this.images = new HashSet<image>();
         }
     
         public int id { get; set; }
@@ -33,5 +34,7 @@ namespace StoreParts
         public virtual spare_part spare_part { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<waybill> waybills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<image> images { get; set; }
     }
 }

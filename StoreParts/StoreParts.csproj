@@ -90,6 +90,9 @@
     <Compile Include="device.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="image.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="storepartsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="storepartsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="brands">
           <Key>
             <PropertyRef Name="id" />
@@ -18,6 +18,14 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="images">
+          <Key>
+            <PropertyRef Name="id_part" />
+            <PropertyRef Name="image_path" />
+          </Key>
+          <Property Name="id_part" Type="int" Nullable="false" />
+          <Property Name="image_path" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="orders">
           <Key>
@@ -79,6 +87,18 @@
           <Property Name="id_part" Type="int" Nullable="false" />
           <Property Name="count" Type="varchar" MaxLength="45" />
         </EntityType>
+        <Association Name="fk_image_part">
+          <End Role="parts" Type="Self.parts" Multiplicity="1" />
+          <End Role="images" Type="Self.images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="images">
+              <PropertyRef Name="id_part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_orders_store">
           <End Role="store" Type="Self.store" Multiplicity="0..1" />
           <End Role="orders" Type="Self.orders" Multiplicity="*" />
@@ -166,12 +186,17 @@
         <EntityContainer Name="storepartsModelStoreContainer">
           <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="storeparts" store:Type="Tables" />
           <EntitySet Name="waybill" EntityType="Self.waybill" Schema="storeparts" store:Type="Tables" />
+          <AssociationSet Name="fk_image_part" Association="Self.fk_image_part">
+            <End Role="parts" EntitySet="parts" />
+            <End Role="images" EntitySet="images" />
+          </AssociationSet>
           <AssociationSet Name="fk_orders_store" Association="Self.fk_orders_store">
             <End Role="store" EntitySet="store" />
             <End Role="orders" EntitySet="orders" />
@@ -201,8 +226,7 @@
             <End Role="waybill" EntitySet="waybill" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storepartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -250,6 +274,7 @@
           <NavigationProperty Name="brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
           <NavigationProperty Name="spare_part" Relationship="Self.fk_parts_sparepart" FromRole="parts" ToRole="spare_part" />
           <NavigationProperty Name="waybills" Relationship="Self.fk_waybill_part" FromRole="parts" ToRole="waybill" />
+          <NavigationProperty Name="images" Relationship="storepartsModel.fk_image_part" FromRole="part" ToRole="image" />
         </EntityType>
         <EntityType Name="spare_part">
           <Key>
@@ -415,7 +440,33 @@
             <End Role="parts" EntitySet="parts" />
             <End Role="waybill" EntitySet="waybills" />
           </AssociationSet>
+          <EntitySet Name="images" EntityType="storepartsModel.image" />
+          <AssociationSet Name="fk_image_part" Association="storepartsModel.fk_image_part">
+            <End Role="part" EntitySet="parts" />
+            <End Role="image" EntitySet="images" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="id_part" />
+            <PropertyRef Name="image_path" />
+          </Key>
+          <Property Name="id_part" Type="Int32" Nullable="false" />
+          <Property Name="image_path" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="part" Relationship="storepartsModel.fk_image_part" FromRole="image" ToRole="part" />
+        </EntityType>
+        <Association Name="fk_image_part">
+          <End Type="storepartsModel.part" Role="part" Multiplicity="1" />
+          <End Type="storepartsModel.image" Role="image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="part">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="id_part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -500,6 +551,14 @@
                 <ScalarProperty Name="id_order" ColumnName="id_order" />
                 <ScalarProperty Name="id_part" ColumnName="id_part" />
                 <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="storepartsModel.image">
+              <MappingFragment StoreEntitySet="images">
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+                <ScalarProperty Name="id_part" ColumnName="id_part" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

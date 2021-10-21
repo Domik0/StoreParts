@@ -33,5 +33,6 @@ namespace StoreParts
         public virtual DbSet<store> stores { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<waybill> waybills { get; set; }
+        public virtual DbSet<image> images { get; set; }
     }
 }
