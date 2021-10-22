@@ -22,7 +22,9 @@ namespace StoreParts
     {
         public Header()
         {
+            User user = App.User;
             InitializeComponent();
+            ClientProfile.Text = user.Name.Substring(0, 2).ToUpper();
         }
         
         private void BasketClick(object sender, MouseButtonEventArgs e)

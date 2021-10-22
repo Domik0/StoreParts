@@ -14,5 +14,6 @@ namespace StoreParts
     public partial class App : Application
     {
         public static storepartsEntities db = new storepartsEntities();
+        public static User User { get; set; }
     }
 }

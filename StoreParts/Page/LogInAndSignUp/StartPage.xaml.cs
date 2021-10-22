@@ -103,7 +103,8 @@ namespace StoreParts.Page.LogIn_and_SignUp
             var users = App.db.Users.Where(u => u.Phone == UserNameText.Text).ToList();
             if (users.Count() != 0 && users.First().Password == PasswordBoxText.Password)
             {
-                NavigationService.Navigate(new MainPage(users.First()));
+                App.User = users.First();
+                NavigationService.Navigate(new MainPage());
             }
             else
             {

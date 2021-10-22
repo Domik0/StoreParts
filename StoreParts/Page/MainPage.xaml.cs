@@ -20,7 +20,7 @@ namespace StoreParts
     /// </summary>
     public partial class MainPage : System.Windows.Controls.Page
     {
-        public MainPage(User selectUser)
+        public MainPage()
         {
             InitializeComponent();
         }

@@ -14,11 +14,19 @@
         <TextBlock Text="Каталог товаров" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
                    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,20"/>
 
-        <ListView Background="#C4C4C4"
-                  BorderThickness="0"
+        <ListView BorderThickness="0"
                   x:Name="CategoryListView"
                   SelectionChanged="SelectCategoryClick"
-                  Margin="30">
+                  Margin="0,0,50,0">
+            <ListView.Template>
+                <ControlTemplate TargetType="ListView">
+                    <Border CornerRadius="30" Background="#C4C4C4">
+                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </ListView.Template>
             <ListView.Resources>
                 <ControlTemplate x:Key="ListViewItemCategory" TargetType="ListViewItem">
                     <Border x:Name="ListViewElement" CornerRadius="10" Background="#C4C4C4">
@@ -27,7 +35,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="" Foreground="Black" FontWeight="Bold" FontSize="25"
+                            <TextBlock Grid.Column="0" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="Black" FontWeight="Bold" FontSize="25"
                                        VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,0"/>
 
                             <Image Grid.Column="1" Source="/Image/arrow.png" Width="40"/>

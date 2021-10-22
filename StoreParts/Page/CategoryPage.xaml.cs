@@ -23,6 +23,7 @@ namespace StoreParts.Page
         public CategoryPage()
         {
             InitializeComponent();
+            CategoryListView.ItemsSource = App.db.Devices.ToList();
         }
 
         private void SelectCategoryClick(object sender, SelectionChangedEventArgs e)
