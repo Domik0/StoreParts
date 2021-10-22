@@ -148,9 +148,6 @@
     <Compile Include="Validations\FieldRule.cs" />
     <Compile Include="Validations\PasswordRule.cs" />
     <Compile Include="Validations\PhoneNumberRule.cs" />
-    <Compile Include="Waybill.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PageHoster.xaml.cs">

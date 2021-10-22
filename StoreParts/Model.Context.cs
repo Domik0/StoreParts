@@ -27,12 +27,11 @@ namespace StoreParts
     
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Part> Parts { get; set; }
         public virtual DbSet<SparePart> SpareParts { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Waybill> Waybills { get; set; }
-        public virtual DbSet<Image> Images { get; set; }
     }
 }

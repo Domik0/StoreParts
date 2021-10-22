@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="storepartsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="storepartsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="brands">
           <Key>
             <PropertyRef Name="id" />
@@ -85,7 +85,6 @@
           </Key>
           <Property Name="id_order" Type="int" Nullable="false" />
           <Property Name="id_part" Type="int" Nullable="false" />
-          <Property Name="count" Type="varchar" MaxLength="45" />
         </EntityType>
         <Association Name="fk_image_part">
           <End Role="parts" Type="Self.parts" Multiplicity="1" />
@@ -226,7 +225,8 @@
             <End Role="waybill" EntitySet="waybill" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storepartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -246,6 +246,15 @@
           <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SparePart" Relationship="Self.fk_sparepart_device" FromRole="device" ToRole="spare_part" />
         </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="IdPart" />
+            <PropertyRef Name="ImagePath" />
+          </Key>
+          <Property Name="IdPart" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Part" Relationship="Self.fk_image_part" FromRole="images" ToRole="parts" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
@@ -257,7 +266,7 @@
           <Property Name="TypePayOnline" Type="Boolean" />
           <NavigationProperty Name="Store" Relationship="Self.fk_orders_store" FromRole="orders" ToRole="store" />
           <NavigationProperty Name="User" Relationship="Self.fk_orders_user" FromRole="orders" ToRole="users" />
-          <NavigationProperty Name="Waybills" Relationship="Self.fk_waybill_order" FromRole="orders" ToRole="waybill" />
+          <NavigationProperty Name="Parts" Relationship="Self.waybill" FromRole="orders" ToRole="parts" />
         </EntityType>
         <EntityType Name="Part">
           <Key>
@@ -272,9 +281,9 @@
           <Property Name="WholesalePrice" Type="Double" />
           <Property Name="CountStorage" Type="Int32" />
           <NavigationProperty Name="Brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
+          <NavigationProperty Name="Images" Relationship="Self.fk_image_part" FromRole="parts" ToRole="images" />
           <NavigationProperty Name="SparePart" Relationship="Self.fk_parts_sparepart" FromRole="parts" ToRole="spare_part" />
-          <NavigationProperty Name="Waybills" Relationship="Self.fk_waybill_part" FromRole="parts" ToRole="waybill" />
-          <NavigationProperty Name="Images" Relationship="storepartsModel.fk_image_part" FromRole="part" ToRole="image" />
+          <NavigationProperty Name="Orders" Relationship="Self.waybill" FromRole="parts" ToRole="orders" />
         </EntityType>
         <EntityType Name="SparePart">
           <Key>
@@ -308,17 +317,6 @@
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Orders" Relationship="Self.fk_orders_user" FromRole="users" ToRole="orders" />
         </EntityType>
-        <EntityType Name="Waybill">
-          <Key>
-            <PropertyRef Name="IdOrder" />
-            <PropertyRef Name="IdPart" />
-          </Key>
-          <Property Name="IdOrder" Type="Int32" Nullable="false" />
-          <Property Name="IdPart" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Order" Relationship="Self.fk_waybill_order" FromRole="waybill" ToRole="orders" />
-          <NavigationProperty Name="Part" Relationship="Self.fk_waybill_part" FromRole="waybill" ToRole="parts" />
-        </EntityType>
         <Association Name="fk_parts_brand">
           <End Role="brands" Type="storepartsModel.Brand" Multiplicity="0..1" />
           <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
@@ -340,6 +338,18 @@
             </Principal>
             <Dependent Role="spare_part">
               <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_image_part">
+          <End Role="parts" Type="storepartsModel.Part" Multiplicity="1" />
+          <End Role="images" Type="storepartsModel.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="images">
+              <PropertyRef Name="IdPart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -367,18 +377,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybill_order">
-          <End Role="orders" Type="storepartsModel.Order" Multiplicity="1" />
-          <End Role="waybill" Type="storepartsModel.Waybill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="orders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="waybill">
-              <PropertyRef Name="IdOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_parts_sparepart">
           <End Role="spare_part" Type="storepartsModel.SparePart" Multiplicity="0..1" />
           <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
@@ -391,34 +389,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_waybill_part">
-          <End Role="parts" Type="storepartsModel.Part" Multiplicity="1" />
-          <End Role="waybill" Type="storepartsModel.Waybill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="parts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="waybill">
-              <PropertyRef Name="IdPart" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="waybill">
+          <End Role="orders" Type="storepartsModel.Order" Multiplicity="*" />
+          <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
         </Association>
         <EntityContainer Name="storepartsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Brands1" EntityType="storepartsModel.Brand" />
           <EntitySet Name="Devices1" EntityType="storepartsModel.Device" />
+          <EntitySet Name="Images1" EntityType="storepartsModel.Image" />
           <EntitySet Name="Orders1" EntityType="storepartsModel.Order" />
-          <EntitySet Name="Parts1" EntityType="storepartsModel.Part" />
+          <EntitySet Name="Parts" EntityType="storepartsModel.Part" />
           <EntitySet Name="SpareParts" EntityType="storepartsModel.SparePart" />
           <EntitySet Name="Stores1" EntityType="storepartsModel.Store" />
           <EntitySet Name="Users1" EntityType="storepartsModel.User" />
-          <EntitySet Name="Waybills1" EntityType="storepartsModel.Waybill" />
           <AssociationSet Name="fk_parts_brand" Association="Self.fk_parts_brand">
             <End Role="brands" EntitySet="Brands1" />
-            <End Role="parts" EntitySet="Parts1" />
+            <End Role="parts" EntitySet="Parts" />
           </AssociationSet>
           <AssociationSet Name="fk_sparepart_device" Association="Self.fk_sparepart_device">
             <End Role="device" EntitySet="Devices1" />
             <End Role="spare_part" EntitySet="SpareParts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_image_part" Association="Self.fk_image_part">
+            <End Role="parts" EntitySet="Parts" />
+            <End Role="images" EntitySet="Images1" />
           </AssociationSet>
           <AssociationSet Name="fk_orders_store" Association="Self.fk_orders_store">
             <End Role="store" EntitySet="Stores1" />
@@ -428,45 +422,15 @@
             <End Role="users" EntitySet="Users1" />
             <End Role="orders" EntitySet="Orders1" />
           </AssociationSet>
-          <AssociationSet Name="fk_waybill_order" Association="Self.fk_waybill_order">
-            <End Role="orders" EntitySet="Orders1" />
-            <End Role="waybill" EntitySet="Waybills1" />
-          </AssociationSet>
           <AssociationSet Name="fk_parts_sparepart" Association="Self.fk_parts_sparepart">
             <End Role="spare_part" EntitySet="SpareParts" />
-            <End Role="parts" EntitySet="Parts1" />
+            <End Role="parts" EntitySet="Parts" />
           </AssociationSet>
-          <AssociationSet Name="fk_waybill_part" Association="Self.fk_waybill_part">
-            <End Role="parts" EntitySet="Parts1" />
-            <End Role="waybill" EntitySet="Waybills1" />
-          </AssociationSet>
-          <EntitySet Name="Images1" EntityType="storepartsModel.Image" />
-          <AssociationSet Name="fk_image_part" Association="storepartsModel.fk_image_part">
-            <End Role="part" EntitySet="Parts1" />
-            <End Role="image" EntitySet="Images1" />
+          <AssociationSet Name="waybill" Association="Self.waybill">
+            <End Role="orders" EntitySet="Orders1" />
+            <End Role="parts" EntitySet="Parts" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Image">
-          <Key>
-            <PropertyRef Name="IdPart" />
-            <PropertyRef Name="ImagePath" />
-          </Key>
-          <Property Name="IdPart" Type="Int32" Nullable="false" />
-          <Property Name="ImagePath" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Part" Relationship="storepartsModel.fk_image_part" FromRole="image" ToRole="part" />
-        </EntityType>
-        <Association Name="fk_image_part">
-          <End Type="storepartsModel.Part" Role="part" Multiplicity="1" />
-          <End Type="storepartsModel.Image" Role="image" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="part">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="image">
-              <PropertyRef Name="IdPart" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -489,6 +453,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Images1">
+            <EntityTypeMapping TypeName="storepartsModel.Image">
+              <MappingFragment StoreEntitySet="images">
+                <ScalarProperty Name="IdPart" ColumnName="id_part" />
+                <ScalarProperty Name="ImagePath" ColumnName="image_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders1">
             <EntityTypeMapping TypeName="storepartsModel.Order">
               <MappingFragment StoreEntitySet="orders">
@@ -500,7 +472,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Parts1">
+          <EntitySetMapping Name="Parts">
             <EntityTypeMapping TypeName="storepartsModel.Part">
               <MappingFragment StoreEntitySet="parts">
                 <ScalarProperty Name="Id" ColumnName="id" />
@@ -545,23 +517,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Waybills1">
-            <EntityTypeMapping TypeName="storepartsModel.Waybill">
-              <MappingFragment StoreEntitySet="waybill">
-                <ScalarProperty Name="IdOrder" ColumnName="id_order" />
-                <ScalarProperty Name="IdPart" ColumnName="id_part" />
-                <ScalarProperty Name="Count" ColumnName="count" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Images1">
-            <EntityTypeMapping TypeName="storepartsModel.Image">
-              <MappingFragment StoreEntitySet="images">
-                <ScalarProperty Name="ImagePath" ColumnName="image_path" />
-                <ScalarProperty Name="IdPart" ColumnName="id_part" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="waybill" TypeName="storepartsModel.waybill" StoreEntitySet="waybill">
+            <EndProperty Name="orders">
+              <ScalarProperty Name="Id" ColumnName="id_order" />
+            </EndProperty>
+            <EndProperty Name="parts">
+              <ScalarProperty Name="Id" ColumnName="id_part" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

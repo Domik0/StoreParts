@@ -17,7 +17,7 @@ namespace StoreParts
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.Waybills = new HashSet<Waybill>();
+            this.Parts = new HashSet<Part>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace StoreParts
         public virtual Store Store { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Waybill> Waybills { get; set; }
+        public virtual ICollection<Part> Parts { get; set; }
     }
 }

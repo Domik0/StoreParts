@@ -28,7 +28,7 @@ namespace StoreParts.Page
 
         private void SelectCategoryClick(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            //MainPageInScreen.NavigationService()
         }
     }
 }

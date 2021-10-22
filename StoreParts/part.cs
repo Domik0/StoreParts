@@ -17,8 +17,8 @@ namespace StoreParts
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Part()
         {
-            this.Waybills = new HashSet<Waybill>();
             this.Images = new HashSet<Image>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -31,10 +31,10 @@ namespace StoreParts
         public Nullable<int> CountStorage { get; set; }
     
         public virtual Brand Brand { get; set; }
-        public virtual SparePart SparePart { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Waybill> Waybills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Images { get; set; }
+        public virtual SparePart SparePart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
