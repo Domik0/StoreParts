@@ -23,7 +23,12 @@ namespace StoreParts.Page
         public MainСategoryPage()
         {
             InitializeComponent();
+            CategoryListView.ItemsSource = App.db.Devices.ToList();
+        }
 
+        private void SelectCategoryClick(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

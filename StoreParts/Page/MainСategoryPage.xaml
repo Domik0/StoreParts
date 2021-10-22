@@ -15,7 +15,62 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Frame Grid.Column="0" x:Name="Category" x:FieldModifier="public" Source="CategoryPage.xaml"/>
-        <Frame Grid.Column="1" x:Name="Main" x:FieldModifier="public" Source="StartPageScreen.xaml"/>
+        <StackPanel Grid.Column="0" Margin="15">
+            <TextBlock Text="Каталог товаров" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,20"/>
+
+            <ListView BorderThickness="0"
+                  x:Name="CategoryListView"
+                  SelectionChanged="SelectCategoryClick"
+                  Margin="0,0,50,0">
+                <ListView.Template>
+                    <ControlTemplate TargetType="ListView">
+                        <Border CornerRadius="30" Background="#C4C4C4">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.Resources>
+                    <ControlTemplate x:Key="ListViewItemCategory" TargetType="ListViewItem">
+                        <Border x:Name="ListViewElement" CornerRadius="10" Background="#C4C4C4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="Black" FontWeight="Bold" FontSize="25"
+                                       VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,0"/>
+
+                                <Image Grid.Column="1" Source="/Image/arrow.png" Width="40"/>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template" Value="{StaticResource ListViewItemCategory}"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"
+                                    IsItemsHost="True">
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
+
+        <Frame Grid.Column="1" x:Name="MainPageInScreen" x:FieldModifier="public" Source="StartPageScreen.xaml"/>
     </Grid>
 </Page>
