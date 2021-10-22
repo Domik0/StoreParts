@@ -25,14 +25,14 @@ namespace StoreParts
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<brand> brands { get; set; }
-        public virtual DbSet<device> devices { get; set; }
-        public virtual DbSet<order> orders { get; set; }
-        public virtual DbSet<part> parts { get; set; }
-        public virtual DbSet<spare_part> spare_part { get; set; }
-        public virtual DbSet<store> stores { get; set; }
-        public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<waybill> waybills { get; set; }
-        public virtual DbSet<image> images { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Part> Parts { get; set; }
+        public virtual DbSet<SparePart> SpareParts { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Waybill> Waybills { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
     }
 }

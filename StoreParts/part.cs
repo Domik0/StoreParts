@@ -12,29 +12,29 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class part
+    public partial class Part
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public part()
+        public Part()
         {
-            this.waybills = new HashSet<waybill>();
-            this.images = new HashSet<image>();
+            this.Waybills = new HashSet<Waybill>();
+            this.Images = new HashSet<Image>();
         }
     
-        public int id { get; set; }
-        public string title { get; set; }
-        public Nullable<int> id_brand { get; set; }
-        public Nullable<int> id_spare_part { get; set; }
-        public string description { get; set; }
-        public Nullable<double> retail_price { get; set; }
-        public Nullable<double> wholesale_price { get; set; }
-        public Nullable<int> count_storage { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public Nullable<int> IdBrand { get; set; }
+        public Nullable<int> IdSparePart { get; set; }
+        public string Description { get; set; }
+        public Nullable<double> RetailPrice { get; set; }
+        public Nullable<double> WholesalePrice { get; set; }
+        public Nullable<int> CountStorage { get; set; }
     
-        public virtual brand brand { get; set; }
-        public virtual spare_part spare_part { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual SparePart SparePart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<waybill> waybills { get; set; }
+        public virtual ICollection<Waybill> Waybills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<image> images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

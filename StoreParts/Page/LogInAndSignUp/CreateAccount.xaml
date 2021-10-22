@@ -24,7 +24,7 @@
     </Page.Resources>
 
     <Grid Background="#FFFFFF">
-        <StackPanel Orientation="Vertical" Margin="100,80, 0, 0" Width="590">
+        <StackPanel Orientation="Vertical" Margin="100, 30, 0, 0" Width="590">
             <TextBlock Text="Заполните данные о себе" FontWeight="Bold" Height="150" FontSize="60" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="#ff850a"/>
             <Border x:Name="phoneBorder" Style="{StaticResource BorderTextBox}" Margin="0,15,0,5">
                 <Grid>
@@ -49,6 +49,9 @@
                 </Grid>
             </Border>
             <TextBlock x:Name="errorPhoneText" FontSize="16" FontWeight="Regular" Foreground="#FF0000"/>
+
+
+
             <Border x:Name="nameBorder"  Style="{StaticResource BorderTextBox}">
                 <Grid>
                     <TextBlock x:Name="PrevUserNameText" Text="Имя" VerticalAlignment="Center" Margin="23,0,20,0" Opacity="0.6" 
@@ -70,6 +73,33 @@
                 </Grid>
             </Border>
             <TextBlock x:Name="errorNameText" FontSize="16" FontWeight="Regular" Foreground="#FF0000"/>
+
+
+
+            <Border x:Name="emailBorder"  Style="{StaticResource BorderTextBox}">
+                <Grid>
+                    <TextBlock x:Name="PrevEmailText" Text="Email" VerticalAlignment="Center" Margin="23,0,20,0" Opacity="0.6" 
+                               FontSize="28" FontWeight="Regular"/>
+                    <TextBox x:Name="EmailText" Validation.Error="EmailText_Error" VerticalAlignment="Center" FontSize="28" FontWeight="Regular"
+                             BorderThickness="0" GotFocus="EmailTextFocus" LostFocus="EmailTextFocus"  Opacity="0" Margin="23,0,20,0">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate></ControlTemplate>
+                        </Validation.ErrorTemplate>
+                        <TextBox.Text>
+                            <Binding Path="Name" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <validations:FieldRule></validations:FieldRule>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+            </Border>
+            <TextBlock x:Name="errorEmailText" FontSize="16" FontWeight="Regular" Foreground="#FF0000"/>
+
+
+
             <Border x:Name="passwordBorder" Style="{StaticResource BorderTextBox}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -96,6 +126,9 @@
                 </Grid>
             </Border>
             <TextBlock x:Name="errorPasswordText" FontSize="16" FontWeight="Regular" Foreground="#FF0000"/>
+
+
+
             <StackPanel Margin="23,10,0,20">
                 <StackPanel Orientation="Horizontal">
                     <Grid>
@@ -106,11 +139,11 @@
                         </Grid.Resources>
                         <Image x:Name="RadioButtonPassGenOff"
                                Style="{StaticResource CustomCheckBoxPasswordGeneration}"
-                               Source="Assets/ComboBox_unchecked.png"
+                               Source="../../Assets/ComboBox_unchecked.png"
                                Width="25"/>
                         <Image x:Name="RadioButtonPassGenOn"
                                Style="{StaticResource CustomCheckBoxPasswordGeneration}"
-                               Source="Assets/ComboBox_checked.png"
+                               Source="../../Assets/ComboBox_checked.png"
                                Width="25"
                                Visibility="Hidden"/>
                     </Grid>
@@ -127,15 +160,15 @@
                         </Grid.Resources>
                         <Image x:Name="RadioButtonAgrError"
                                Style="{StaticResource CustomCheckBoxAgreement}"
-                               Source="Assets/ComboBox_unchecked_Red.png"
+                               Source="../../Assets/ComboBox_unchecked_Red.png"
                                Width="25"/>
                         <Image x:Name="RadioButtonAgrOff"
                                Style="{StaticResource CustomCheckBoxAgreement}"
-                               Source="Assets/ComboBox_unchecked.png"
+                               Source="../../Assets/ComboBox_unchecked.png"
                                Width="25"/>
                         <Image x:Name="RadioButtonAgrOn"
                                Style="{StaticResource CustomCheckBoxAgreement}"
-                               Source="Assets/ComboBox_checked.png"
+                               Source="../../Assets/ComboBox_checked.png"
                                Width="25"
                                Visibility="Hidden"/>
                     </Grid>

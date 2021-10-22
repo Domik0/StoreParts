@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -98,21 +100,15 @@ namespace StoreParts.Page.LogIn_and_SignUp
 
         private void LogInClick(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new MainPage());
-            //var creators = App.db.Creators.Where(c => c.PhoneNumber == UserNameText.Text).ToList();
-            //var clients = App.db.Clients.Where(c => c.PhoneNumber == UserNameText.Text).ToList();
-            //if (creators.Count() != 0 && creators.First().Password == PasswordBoxText.Password)
-            //{
-            //    NavigationService.Navigate(new CreatorListFlow(creators.First()));
-            //}
-            //else if (clients.Count() != 0 && clients.First().Password == PasswordBoxText.Password)
-            //{
-            //    NavigationService.Navigate(new ClientListFlow(clients.First()));
-            //}
-            //else
-            //{
-            //    ErrorLogIn.Visibility = Visibility.Visible;
-            //}
+            var users = App.db.Users.Where(u => u.Phone == UserNameText.Text).ToList();
+            if (users.Count() != 0 && users.First().Password == PasswordBoxText.Password)
+            {
+                NavigationService.Navigate(new MainPage(users.First()));
+            }
+            else
+            {
+                ErrorLogIn.Visibility = Visibility.Visible;
+            }
         }
     }
 }

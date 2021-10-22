@@ -12,20 +12,20 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class spare_part
+    public partial class SparePart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public spare_part()
+        public SparePart()
         {
-            this.parts = new HashSet<part>();
+            this.Parts = new HashSet<Part>();
         }
     
-        public int id { get; set; }
-        public Nullable<int> id_device { get; set; }
-        public string title { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> IdDevice { get; set; }
+        public string Title { get; set; }
     
-        public virtual device device { get; set; }
+        public virtual Device Device { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<part> parts { get; set; }
+        public virtual ICollection<Part> Parts { get; set; }
     }
 }

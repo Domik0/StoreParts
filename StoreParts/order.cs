@@ -12,23 +12,23 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class order
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public order()
+        public Order()
         {
-            this.waybills = new HashSet<waybill>();
+            this.Waybills = new HashSet<Waybill>();
         }
     
-        public int id { get; set; }
-        public Nullable<int> id_store { get; set; }
-        public Nullable<int> id_user { get; set; }
-        public string comments { get; set; }
-        public Nullable<bool> type_pay_online { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> IdStore { get; set; }
+        public Nullable<int> IdUser { get; set; }
+        public string Comments { get; set; }
+        public Nullable<bool> TypePayOnline { get; set; }
     
-        public virtual store store { get; set; }
-        public virtual user user { get; set; }
+        public virtual Store Store { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<waybill> waybills { get; set; }
+        public virtual ICollection<Waybill> Waybills { get; set; }
     }
 }

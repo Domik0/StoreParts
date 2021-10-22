@@ -36,6 +36,10 @@ namespace StoreParts
             {
                 phoneBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
             }
+            if (EmailText.Text == "")
+            {
+                emailBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
+            }
             if (UserNameText.Text == "")
             {
                 nameBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
@@ -83,6 +87,18 @@ namespace StoreParts
             }
         }
 
+        private void EmailTextFocus(object sender, RoutedEventArgs e)
+        {
+            if (EmailText.Text != "" || EmailText.IsKeyboardFocused == true)
+            {
+                EmailText.Opacity = 1;
+            }
+            else
+            {
+                EmailText.Opacity = 0;
+            }
+        }
+
         private void PasswordBoxTextFocus(object sender, RoutedEventArgs e)
         {
             if (ShowPasswordBoxText.Text != "" || ShowPasswordBoxText.IsKeyboardFocused == true)
@@ -109,7 +125,7 @@ namespace StoreParts
 
         private void CustomCheckBoxAgreement(object sender, MouseButtonEventArgs e)
         {
-            Image selectImage = sender as Image;
+            System.Windows.Controls.Image selectImage = sender as System.Windows.Controls.Image;
             switch (selectImage.Name)
             {
                 case "RadioButtonAgrOff":
@@ -127,7 +143,7 @@ namespace StoreParts
 
         private void CustomCheckBoxPasswordGeneration(object sender, MouseButtonEventArgs e)
         {
-            Image selectImage = sender as Image;
+            System.Windows.Controls.Image selectImage = sender as System.Windows.Controls.Image;
             switch (selectImage.Name)
             {
                 case "RadioButtonPassGenOff":
@@ -225,6 +241,21 @@ namespace StoreParts
             {
                 errorNameText.Visibility = Visibility.Hidden;
                 nameBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#DADADA");
+            }
+        }
+
+        private void EmailText_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (Validation.GetHasError(sender as TextBox))
+            {
+                errorEmailText.Text = e.Error.ErrorContent.ToString();
+                errorEmailText.Visibility = Visibility.Visible;
+                emailBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
+            }
+            else
+            {
+                errorEmailText.Visibility = Visibility.Hidden;
+                emailBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#DADADA");
             }
         }
 

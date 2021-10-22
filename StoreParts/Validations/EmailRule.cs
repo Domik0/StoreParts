@@ -9,17 +9,15 @@ using System.Windows.Controls;
 
 namespace StoreParts.Validations
 {
-    class PhoneNumberRule : ValidationRule
+    class EmailRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string phone = (string)value;
-            if (!Regex.IsMatch(phone, @"^((\+7)+([0-9]){10})$"))
-            //if (!Regex.IsMatch(Phone, @"^([a-z][a-z0-9]{4,19})((@gmail\.com)|(@mail\.ru)|(@bk\.ru)|(@yandex\.ru)|(@outlook\.com))$"))
-            //if (!Regex.IsMatch(Phone, @"^(([А-Я][а-я]{1,}\s?){2}([А-Я][а-я]{1,}))$"))
+            string email = (string)value;
+            if (!Regex.IsMatch(email, @"^([a-z][a-z0-9]{4,19})((@gmail\.com)|(@mail\.ru)|(@bk\.ru)|(@yandex\.ru)|(@outlook\.com))$"))
             {
                 return new ValidationResult(false,
-                    "Некорректный номер");
+                    "Некорректный email");
             }
             return new ValidationResult(true, null);
         }

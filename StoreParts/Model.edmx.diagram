@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a434571fff394ea1b47902cf769cf49f" Name="Diagram1">
-        <EntityTypeShape EntityType="storepartsModel.brand" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.device" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.order" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.part" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.spare_part" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.store" Width="1.5" PointX="5.375" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.user" Width="1.5" PointX="9.375" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="storepartsModel.waybill" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Brand" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Device" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Order" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Part" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.SparePart" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Store" Width="1.5" PointX="5.375" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.User" Width="1.5" PointX="9.375" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="storepartsModel.Waybill" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="storepartsModel.fk_parts_brand" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_sparepart_device" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_orders_store" ManuallyRouted="false" />
@@ -20,7 +20,7 @@
         <AssociationConnector Association="storepartsModel.fk_waybill_order" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_parts_sparepart" ManuallyRouted="false" />
         <AssociationConnector Association="storepartsModel.fk_waybill_part" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="storepartsModel.image" Width="1.5" PointX="2.875" PointY="3.875" />
+        <EntityTypeShape EntityType="storepartsModel.Image" Width="1.5" PointX="2.875" PointY="3.875" />
         <AssociationConnector Association="storepartsModel.fk_image_part" />
       </Diagram>
     </edmx:Diagrams>

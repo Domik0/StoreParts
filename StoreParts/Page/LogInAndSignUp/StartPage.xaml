@@ -11,7 +11,7 @@
       Height="830" Width="1440">
 
     <Grid Background="#FFFFFF">
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="130,0" Height="500" Width="495">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="130,0" Height="525" Width="495">
             <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 25">
                 <TextBlock Text="Вход" FontSize="64" FontWeight="Bold" Foreground="#ff850a"/>
                 <Border VerticalAlignment="Bottom" Margin="140,12" HorizontalAlignment="Right" MouseUp="SignUpClick"
@@ -57,7 +57,7 @@
             </Border>
             <TextBlock x:Name="errorPasswordText" FontSize="16" FontWeight="Regular" Foreground="#FF0000"/>
 
-            <TextBlock x:Name="ErrorLogIn" Text="Номер или пароль введен неверно" FontSize="16" Foreground="#FF0000" FontWeight="Regular" Visibility="Hidden"/>
+            <TextBlock x:Name="ErrorLogIn" Text="Номер или пароль введен неверно" FontSize="16" Foreground="#FF0000" FontWeight="Regular" Visibility="Hidden" Margin="10"/>
 
             <Border Height="58" Width="495" x:Name="ButtonLogIn"
                     HorizontalAlignment="Center" VerticalAlignment="Center"

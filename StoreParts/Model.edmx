@@ -184,15 +184,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="storepartsModelStoreContainer">
-          <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="device" EntityType="Self.device" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="images" EntityType="Self.images" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="brands" EntityType="Self.brands" Schema="" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" Schema="" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="" store:Type="Tables" />
+          <EntitySet Name="parts" EntityType="Self.parts" Schema="" store:Type="Tables" />
+          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="" store:Type="Tables" />
+          <EntitySet Name="store" EntityType="Self.store" Schema="" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="" store:Type="Tables" />
+          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="" store:Type="Tables" />
           <AssociationSet Name="fk_image_part" Association="Self.fk_image_part">
             <End Role="parts" EntitySet="parts" />
             <End Role="images" EntitySet="images" />
@@ -230,240 +230,240 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storepartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="brand">
+        <EntityType Name="Brand">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="parts" Relationship="Self.fk_parts_brand" FromRole="brands" ToRole="parts" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Parts" Relationship="Self.fk_parts_brand" FromRole="brands" ToRole="parts" />
         </EntityType>
-        <EntityType Name="device">
+        <EntityType Name="Device">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="spare_part" Relationship="Self.fk_sparepart_device" FromRole="device" ToRole="spare_part" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SparePart" Relationship="Self.fk_sparepart_device" FromRole="device" ToRole="spare_part" />
         </EntityType>
-        <EntityType Name="order">
+        <EntityType Name="Order">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_store" Type="Int32" />
-          <Property Name="id_user" Type="Int32" />
-          <Property Name="comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="type_pay_online" Type="Boolean" />
-          <NavigationProperty Name="store" Relationship="Self.fk_orders_store" FromRole="orders" ToRole="store" />
-          <NavigationProperty Name="user" Relationship="Self.fk_orders_user" FromRole="orders" ToRole="users" />
-          <NavigationProperty Name="waybills" Relationship="Self.fk_waybill_order" FromRole="orders" ToRole="waybill" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdStore" Type="Int32" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TypePayOnline" Type="Boolean" />
+          <NavigationProperty Name="Store" Relationship="Self.fk_orders_store" FromRole="orders" ToRole="store" />
+          <NavigationProperty Name="User" Relationship="Self.fk_orders_user" FromRole="orders" ToRole="users" />
+          <NavigationProperty Name="Waybills" Relationship="Self.fk_waybill_order" FromRole="orders" ToRole="waybill" />
         </EntityType>
-        <EntityType Name="part">
+        <EntityType Name="Part">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="id_brand" Type="Int32" />
-          <Property Name="id_spare_part" Type="Int32" />
-          <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
-          <Property Name="retail_price" Type="Double" />
-          <Property Name="wholesale_price" Type="Double" />
-          <Property Name="count_storage" Type="Int32" />
-          <NavigationProperty Name="brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
-          <NavigationProperty Name="spare_part" Relationship="Self.fk_parts_sparepart" FromRole="parts" ToRole="spare_part" />
-          <NavigationProperty Name="waybills" Relationship="Self.fk_waybill_part" FromRole="parts" ToRole="waybill" />
-          <NavigationProperty Name="images" Relationship="storepartsModel.fk_image_part" FromRole="part" ToRole="image" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IdBrand" Type="Int32" />
+          <Property Name="IdSparePart" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="RetailPrice" Type="Double" />
+          <Property Name="WholesalePrice" Type="Double" />
+          <Property Name="CountStorage" Type="Int32" />
+          <NavigationProperty Name="Brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
+          <NavigationProperty Name="SparePart" Relationship="Self.fk_parts_sparepart" FromRole="parts" ToRole="spare_part" />
+          <NavigationProperty Name="Waybills" Relationship="Self.fk_waybill_part" FromRole="parts" ToRole="waybill" />
+          <NavigationProperty Name="Images" Relationship="storepartsModel.fk_image_part" FromRole="part" ToRole="image" />
         </EntityType>
-        <EntityType Name="spare_part">
+        <EntityType Name="SparePart">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_device" Type="Int32" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="device" Relationship="Self.fk_sparepart_device" FromRole="spare_part" ToRole="device" />
-          <NavigationProperty Name="parts" Relationship="Self.fk_parts_sparepart" FromRole="spare_part" ToRole="parts" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Device" Relationship="Self.fk_sparepart_device" FromRole="spare_part" ToRole="device" />
+          <NavigationProperty Name="Parts" Relationship="Self.fk_parts_sparepart" FromRole="spare_part" ToRole="parts" />
         </EntityType>
-        <EntityType Name="store">
+        <EntityType Name="Store">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="time_work" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="orders" Relationship="Self.fk_orders_store" FromRole="store" ToRole="orders" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TimeWork" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.fk_orders_store" FromRole="store" ToRole="orders" />
         </EntityType>
-        <EntityType Name="user">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="orders" Relationship="Self.fk_orders_user" FromRole="users" ToRole="orders" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.fk_orders_user" FromRole="users" ToRole="orders" />
         </EntityType>
-        <EntityType Name="waybill">
+        <EntityType Name="Waybill">
           <Key>
-            <PropertyRef Name="id_order" />
-            <PropertyRef Name="id_part" />
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="IdPart" />
           </Key>
-          <Property Name="id_order" Type="Int32" Nullable="false" />
-          <Property Name="id_part" Type="Int32" Nullable="false" />
-          <Property Name="count" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="order" Relationship="Self.fk_waybill_order" FromRole="waybill" ToRole="orders" />
-          <NavigationProperty Name="part" Relationship="Self.fk_waybill_part" FromRole="waybill" ToRole="parts" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="IdPart" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="Self.fk_waybill_order" FromRole="waybill" ToRole="orders" />
+          <NavigationProperty Name="Part" Relationship="Self.fk_waybill_part" FromRole="waybill" ToRole="parts" />
         </EntityType>
         <Association Name="fk_parts_brand">
-          <End Role="brands" Type="Self.brand" Multiplicity="0..1" />
-          <End Role="parts" Type="Self.part" Multiplicity="*" />
+          <End Role="brands" Type="storepartsModel.Brand" Multiplicity="0..1" />
+          <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="brands">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="parts">
-              <PropertyRef Name="id_brand" />
+              <PropertyRef Name="IdBrand" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_sparepart_device">
-          <End Role="device" Type="Self.device" Multiplicity="0..1" />
-          <End Role="spare_part" Type="Self.spare_part" Multiplicity="*" />
+          <End Role="device" Type="storepartsModel.Device" Multiplicity="0..1" />
+          <End Role="spare_part" Type="storepartsModel.SparePart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="device">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="spare_part">
-              <PropertyRef Name="id_device" />
+              <PropertyRef Name="IdDevice" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_orders_store">
-          <End Role="store" Type="Self.store" Multiplicity="0..1" />
-          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <End Role="store" Type="storepartsModel.Store" Multiplicity="0..1" />
+          <End Role="orders" Type="storepartsModel.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="store">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="orders">
-              <PropertyRef Name="id_store" />
+              <PropertyRef Name="IdStore" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_orders_user">
-          <End Role="users" Type="Self.user" Multiplicity="0..1" />
-          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <End Role="users" Type="storepartsModel.User" Multiplicity="0..1" />
+          <End Role="orders" Type="storepartsModel.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="orders">
-              <PropertyRef Name="id_user" />
+              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_waybill_order">
-          <End Role="orders" Type="Self.order" Multiplicity="1" />
-          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
+          <End Role="orders" Type="storepartsModel.Order" Multiplicity="1" />
+          <End Role="waybill" Type="storepartsModel.Waybill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="orders">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="waybill">
-              <PropertyRef Name="id_order" />
+              <PropertyRef Name="IdOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_parts_sparepart">
-          <End Role="spare_part" Type="Self.spare_part" Multiplicity="0..1" />
-          <End Role="parts" Type="Self.part" Multiplicity="*" />
+          <End Role="spare_part" Type="storepartsModel.SparePart" Multiplicity="0..1" />
+          <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="spare_part">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="parts">
-              <PropertyRef Name="id_spare_part" />
+              <PropertyRef Name="IdSparePart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_waybill_part">
-          <End Role="parts" Type="Self.part" Multiplicity="1" />
-          <End Role="waybill" Type="Self.waybill" Multiplicity="*" />
+          <End Role="parts" Type="storepartsModel.Part" Multiplicity="1" />
+          <End Role="waybill" Type="storepartsModel.Waybill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="parts">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="waybill">
-              <PropertyRef Name="id_part" />
+              <PropertyRef Name="IdPart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="storepartsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="brands" EntityType="Self.brand" />
-          <EntitySet Name="devices" EntityType="Self.device" />
-          <EntitySet Name="orders" EntityType="Self.order" />
-          <EntitySet Name="parts" EntityType="Self.part" />
-          <EntitySet Name="spare_part" EntityType="Self.spare_part" />
-          <EntitySet Name="stores" EntityType="Self.store" />
-          <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="waybills" EntityType="Self.waybill" />
+          <EntitySet Name="Brands1" EntityType="storepartsModel.Brand" />
+          <EntitySet Name="Devices1" EntityType="storepartsModel.Device" />
+          <EntitySet Name="Orders1" EntityType="storepartsModel.Order" />
+          <EntitySet Name="Parts1" EntityType="storepartsModel.Part" />
+          <EntitySet Name="SpareParts" EntityType="storepartsModel.SparePart" />
+          <EntitySet Name="Stores1" EntityType="storepartsModel.Store" />
+          <EntitySet Name="Users1" EntityType="storepartsModel.User" />
+          <EntitySet Name="Waybills1" EntityType="storepartsModel.Waybill" />
           <AssociationSet Name="fk_parts_brand" Association="Self.fk_parts_brand">
-            <End Role="brands" EntitySet="brands" />
-            <End Role="parts" EntitySet="parts" />
+            <End Role="brands" EntitySet="Brands1" />
+            <End Role="parts" EntitySet="Parts1" />
           </AssociationSet>
           <AssociationSet Name="fk_sparepart_device" Association="Self.fk_sparepart_device">
-            <End Role="device" EntitySet="devices" />
-            <End Role="spare_part" EntitySet="spare_part" />
+            <End Role="device" EntitySet="Devices1" />
+            <End Role="spare_part" EntitySet="SpareParts" />
           </AssociationSet>
           <AssociationSet Name="fk_orders_store" Association="Self.fk_orders_store">
-            <End Role="store" EntitySet="stores" />
-            <End Role="orders" EntitySet="orders" />
+            <End Role="store" EntitySet="Stores1" />
+            <End Role="orders" EntitySet="Orders1" />
           </AssociationSet>
           <AssociationSet Name="fk_orders_user" Association="Self.fk_orders_user">
-            <End Role="users" EntitySet="users" />
-            <End Role="orders" EntitySet="orders" />
+            <End Role="users" EntitySet="Users1" />
+            <End Role="orders" EntitySet="Orders1" />
           </AssociationSet>
           <AssociationSet Name="fk_waybill_order" Association="Self.fk_waybill_order">
-            <End Role="orders" EntitySet="orders" />
-            <End Role="waybill" EntitySet="waybills" />
+            <End Role="orders" EntitySet="Orders1" />
+            <End Role="waybill" EntitySet="Waybills1" />
           </AssociationSet>
           <AssociationSet Name="fk_parts_sparepart" Association="Self.fk_parts_sparepart">
-            <End Role="spare_part" EntitySet="spare_part" />
-            <End Role="parts" EntitySet="parts" />
+            <End Role="spare_part" EntitySet="SpareParts" />
+            <End Role="parts" EntitySet="Parts1" />
           </AssociationSet>
           <AssociationSet Name="fk_waybill_part" Association="Self.fk_waybill_part">
-            <End Role="parts" EntitySet="parts" />
-            <End Role="waybill" EntitySet="waybills" />
+            <End Role="parts" EntitySet="Parts1" />
+            <End Role="waybill" EntitySet="Waybills1" />
           </AssociationSet>
-          <EntitySet Name="images" EntityType="storepartsModel.image" />
+          <EntitySet Name="Images1" EntityType="storepartsModel.Image" />
           <AssociationSet Name="fk_image_part" Association="storepartsModel.fk_image_part">
-            <End Role="part" EntitySet="parts" />
-            <End Role="image" EntitySet="images" />
+            <End Role="part" EntitySet="Parts1" />
+            <End Role="image" EntitySet="Images1" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="image">
+        <EntityType Name="Image">
           <Key>
-            <PropertyRef Name="id_part" />
-            <PropertyRef Name="image_path" />
+            <PropertyRef Name="IdPart" />
+            <PropertyRef Name="ImagePath" />
           </Key>
-          <Property Name="id_part" Type="Int32" Nullable="false" />
-          <Property Name="image_path" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="part" Relationship="storepartsModel.fk_image_part" FromRole="image" ToRole="part" />
+          <Property Name="IdPart" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Part" Relationship="storepartsModel.fk_image_part" FromRole="image" ToRole="part" />
         </EntityType>
         <Association Name="fk_image_part">
-          <End Type="storepartsModel.part" Role="part" Multiplicity="1" />
-          <End Type="storepartsModel.image" Role="image" Multiplicity="*" />
+          <End Type="storepartsModel.Part" Role="part" Multiplicity="1" />
+          <End Type="storepartsModel.Image" Role="image" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="part">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="image">
-              <PropertyRef Name="id_part" />
+              <PropertyRef Name="IdPart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -473,92 +473,92 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="storepartsModelStoreContainer" CdmEntityContainer="storepartsEntities">
-          <EntitySetMapping Name="brands">
-            <EntityTypeMapping TypeName="storepartsModel.brand">
+          <EntitySetMapping Name="Brands1">
+            <EntityTypeMapping TypeName="storepartsModel.Brand">
               <MappingFragment StoreEntitySet="brands">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="devices">
-            <EntityTypeMapping TypeName="storepartsModel.device">
+          <EntitySetMapping Name="Devices1">
+            <EntityTypeMapping TypeName="storepartsModel.Device">
               <MappingFragment StoreEntitySet="device">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="orders">
-            <EntityTypeMapping TypeName="storepartsModel.order">
+          <EntitySetMapping Name="Orders1">
+            <EntityTypeMapping TypeName="storepartsModel.Order">
               <MappingFragment StoreEntitySet="orders">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_store" ColumnName="id_store" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
-                <ScalarProperty Name="comments" ColumnName="comments" />
-                <ScalarProperty Name="type_pay_online" ColumnName="type_pay_online" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="IdStore" ColumnName="id_store" />
+                <ScalarProperty Name="IdUser" ColumnName="id_user" />
+                <ScalarProperty Name="Comments" ColumnName="comments" />
+                <ScalarProperty Name="TypePayOnline" ColumnName="type_pay_online" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="parts">
-            <EntityTypeMapping TypeName="storepartsModel.part">
+          <EntitySetMapping Name="Parts1">
+            <EntityTypeMapping TypeName="storepartsModel.Part">
               <MappingFragment StoreEntitySet="parts">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="id_brand" ColumnName="id_brand" />
-                <ScalarProperty Name="id_spare_part" ColumnName="id_spare_part" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="retail_price" ColumnName="retail_price" />
-                <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
-                <ScalarProperty Name="count_storage" ColumnName="count_storage" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="title" />
+                <ScalarProperty Name="IdBrand" ColumnName="id_brand" />
+                <ScalarProperty Name="IdSparePart" ColumnName="id_spare_part" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="RetailPrice" ColumnName="retail_price" />
+                <ScalarProperty Name="WholesalePrice" ColumnName="wholesale_price" />
+                <ScalarProperty Name="CountStorage" ColumnName="count_storage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="spare_part">
-            <EntityTypeMapping TypeName="storepartsModel.spare_part">
+          <EntitySetMapping Name="SpareParts">
+            <EntityTypeMapping TypeName="storepartsModel.SparePart">
               <MappingFragment StoreEntitySet="spare_part">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_device" ColumnName="id_device" />
-                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="IdDevice" ColumnName="id_device" />
+                <ScalarProperty Name="Title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="stores">
-            <EntityTypeMapping TypeName="storepartsModel.store">
+          <EntitySetMapping Name="Stores1">
+            <EntityTypeMapping TypeName="storepartsModel.Store">
               <MappingFragment StoreEntitySet="store">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="time_work" ColumnName="time_work" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="City" ColumnName="city" />
+                <ScalarProperty Name="Address" ColumnName="address" />
+                <ScalarProperty Name="TimeWork" ColumnName="time_work" />
+                <ScalarProperty Name="Phone" ColumnName="phone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="storepartsModel.user">
+          <EntitySetMapping Name="Users1">
+            <EntityTypeMapping TypeName="storepartsModel.User">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Phone" ColumnName="phone" />
+                <ScalarProperty Name="Email" ColumnName="email" />
+                <ScalarProperty Name="Password" ColumnName="password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="waybills">
-            <EntityTypeMapping TypeName="storepartsModel.waybill">
+          <EntitySetMapping Name="Waybills1">
+            <EntityTypeMapping TypeName="storepartsModel.Waybill">
               <MappingFragment StoreEntitySet="waybill">
-                <ScalarProperty Name="id_order" ColumnName="id_order" />
-                <ScalarProperty Name="id_part" ColumnName="id_part" />
-                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="IdOrder" ColumnName="id_order" />
+                <ScalarProperty Name="IdPart" ColumnName="id_part" />
+                <ScalarProperty Name="Count" ColumnName="count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="images">
-            <EntityTypeMapping TypeName="storepartsModel.image">
+          <EntitySetMapping Name="Images1">
+            <EntityTypeMapping TypeName="storepartsModel.Image">
               <MappingFragment StoreEntitySet="images">
-                <ScalarProperty Name="image_path" ColumnName="image_path" />
-                <ScalarProperty Name="id_part" ColumnName="id_part" />
+                <ScalarProperty Name="ImagePath" ColumnName="image_path" />
+                <ScalarProperty Name="IdPart" ColumnName="id_part" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

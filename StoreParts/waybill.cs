@@ -12,13 +12,13 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class waybill
+    public partial class Waybill
     {
-        public int id_order { get; set; }
-        public int id_part { get; set; }
-        public string count { get; set; }
+        public int IdOrder { get; set; }
+        public int IdPart { get; set; }
+        public string Count { get; set; }
     
-        public virtual order order { get; set; }
-        public virtual part part { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Part Part { get; set; }
     }
 }

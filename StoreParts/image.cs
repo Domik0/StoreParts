@@ -12,11 +12,11 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class image
+    public partial class Image
     {
-        public int id_part { get; set; }
-        public int image_path { get; set; }
+        public int IdPart { get; set; }
+        public int ImagePath { get; set; }
     
-        public virtual part part { get; set; }
+        public virtual Part Part { get; set; }
     }
 }

@@ -84,13 +84,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="brand.cs">
+    <Compile Include="Brand.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="device.cs">
+    <Compile Include="Device.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="image.cs">
+    <Compile Include="Image.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
@@ -108,7 +108,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="order.cs">
+    <Compile Include="Order.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Page\CategoryPage.xaml.cs">
@@ -135,22 +135,23 @@
     <Compile Include="Page\LogInAndSignUp\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="part.cs">
+    <Compile Include="Part.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="spare_part.cs">
+    <Compile Include="SparePart.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="store.cs">
+    <Compile Include="Store.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="user.cs">
+    <Compile Include="User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validations\EmailRule.cs" />
     <Compile Include="Validations\FieldRule.cs" />
     <Compile Include="Validations\PasswordRule.cs" />
     <Compile Include="Validations\PhoneNumberRule.cs" />
-    <Compile Include="waybill.cs">
+    <Compile Include="Waybill.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
   </ItemGroup>

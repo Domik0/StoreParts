@@ -12,21 +12,21 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class store
+    public partial class Store
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public store()
+        public Store()
         {
-            this.orders = new HashSet<order>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int id { get; set; }
-        public string city { get; set; }
-        public string address { get; set; }
-        public string time_work { get; set; }
-        public string phone { get; set; }
+        public int Id { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public string TimeWork { get; set; }
+        public string Phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<order> orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

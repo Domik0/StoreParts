@@ -12,18 +12,18 @@ namespace StoreParts
     using System;
     using System.Collections.Generic;
     
-    public partial class brand
+    public partial class Brand
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public brand()
+        public Brand()
         {
-            this.parts = new HashSet<part>();
+            this.Parts = new HashSet<Part>();
         }
     
-        public int id { get; set; }
-        public string title { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<part> parts { get; set; }
+        public virtual ICollection<Part> Parts { get; set; }
     }
 }
