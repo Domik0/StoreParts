@@ -13,13 +13,13 @@ namespace StoreParts
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             this.Orders = new HashSet<Order>();
+            this.Parts = new List<Part>();
         }
     
         public int Id { get; set; }
@@ -30,7 +30,6 @@ namespace StoreParts
 
         [NotMapped]
         public List<Part> Parts { get; set; }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

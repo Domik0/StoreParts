@@ -15,7 +15,7 @@ namespace StoreParts
     public partial class Image
     {
         public int IdPart { get; set; }
-        public int ImagePath { get; set; }
+        public string ImagePath { get; set; }
     
         public virtual Part Part { get; set; }
     }

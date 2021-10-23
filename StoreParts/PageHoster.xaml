@@ -7,7 +7,7 @@
         mc:Ignorable="d" Title="PageHoster"
         WindowState="Maximized"
         Height="830" Width="1440"
-        MinHeight="830" MinWidth="1440"
+        MinHeight="830" MinWidth="1540"
         Source="Page/LogInAndSignUp/StartPage.xaml"
         ShowsNavigationUI="False">
 </NavigationWindow>

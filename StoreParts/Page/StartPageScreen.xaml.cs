@@ -23,6 +23,26 @@ namespace StoreParts.Page
         public StartPageScreen()
         {
             InitializeComponent();
+            NewPartsListView.ItemsSource = App.db.Parts.OrderByDescending(p => p.Id).Take(10).ToList();
+            if (App.User.Parts.Count > 0)
+            {
+                BasketPartsListView.ItemsSource = App.User.Parts;
+            }
+            else
+            {
+                BasketPartsListView.Visibility = Visibility.Hidden;
+                NotKnowBox.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void SelectNewPartsClick(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SelectBasketPartsClick(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

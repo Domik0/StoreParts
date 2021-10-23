@@ -5,24 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
-      d:DesignHeight="680" d:DesignWidth="1440"
-      Height="680" Width="1440"
+      d:DesignHeight="680" d:DesignWidth="1540"
+      Height="680" Width="1540"
       Title="MainСategoryPage">
 
-    <Grid Background="#FFFFFF">
+    <Grid Background="#FFFFFF" Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="400"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="15">
+        <StackPanel Grid.Column="0" Margin="10,10,40,0">
             <TextBlock Text="Каталог товаров" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
-                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,20"/>
+                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
             <ListView BorderThickness="0"
                   x:Name="CategoryListView"
                   SelectionChanged="SelectCategoryClick"
-                  Margin="0,0,50,0">
+                  Margin="0,0,0,0">
                 <ListView.Template>
                     <ControlTemplate TargetType="ListView">
                         <Border CornerRadius="30" Background="#C4C4C4">
@@ -40,8 +40,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="Black" FontWeight="Bold" FontSize="25"
-                                       VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,0"/>
+                                <TextBlock Grid.Column="0" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="Black" FontWeight="Bold" FontSize="20"
+                                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25,0"/>
 
                                 <Image Grid.Column="1" Source="/Image/arrow.png" Width="40"/>
                             </Grid>

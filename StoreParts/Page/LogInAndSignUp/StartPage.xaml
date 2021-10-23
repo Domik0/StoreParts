@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:StoreParts"
       xmlns:validations="clr-namespace:StoreParts.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="830" d:DesignWidth="1440"
+      d:DesignHeight="830" d:DesignWidth="1540"
       Title="StartScreen"
-      Height="830" Width="1440">
+      Height="830" Width="1540">
 
     <Grid Background="#FFFFFF">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="130,0" Height="525" Width="495">

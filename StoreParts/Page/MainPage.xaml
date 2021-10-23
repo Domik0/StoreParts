@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
-      d:DesignHeight="830" d:DesignWidth="1440"
-      Height="830" Width="1440"
+      d:DesignHeight="830" d:DesignWidth="1540"
+      Height="830" Width="1540"
       Title="MainPage">
 
     <Grid Background="#FFFFFF">
@@ -15,12 +15,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Background="#FFFFFF" Grid.Column="0">
+        <Grid Background="#ffca3e" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="550"/>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="96"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50" Width="250" MouseUp="MainTitle_Click">
@@ -34,12 +34,13 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="FilterSearch" FontSize="22" FontWeight="Medium" Grid.Column="0" KeyUp="SearchKeyUp" BorderThickness="0" Margin="23,10,0,6"/>
+                    <TextBox x:Name="FilterSearch" FontSize="22" FontWeight="Medium" Grid.Column="0" KeyUp="SearchKeyUp" 
+                             BorderThickness="0" Margin="23,10,0,6" Background="#ffca3e"/>
                     <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Padding="0" Click="ButtonSearchClick">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Path Data="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z" 
-                                  Fill="#ffca3e" VerticalAlignment="Center"/>
+                                  Fill="#ff561c" VerticalAlignment="Center"/>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
