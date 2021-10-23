@@ -10,6 +10,7 @@
       Background="White">
 
     <Grid>
-        
+        <TextBlock x:Name="Block" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" />
     </Grid>
 </Page>

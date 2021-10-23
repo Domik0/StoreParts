@@ -20,9 +20,10 @@ namespace StoreParts.Page
     /// </summary>
     public partial class PageListParts : System.Windows.Controls.Page
     {
-        public PageListParts()
+        public PageListParts(Device category)
         {
             InitializeComponent();
+            Block.Text = category.Title;
         }
     }
 }

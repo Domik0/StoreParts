@@ -14,7 +14,53 @@
             <RowDefinition Height="150"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Frame Grid.Row="0" x:Name="Header" x:FieldModifier="public" Source="Header.xaml"/>
+
+        <Grid Background="#FFFFFF" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="550"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="96"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50" Width="250" MouseUp="MainTitle_Click">
+                <TextBlock Text="StoreParts" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"/>
+            </StackPanel>
+
+            <Border CornerRadius="30" BorderBrush="#ff850a" BorderThickness="1.5" UseLayoutRounding="True"
+                Height="56" Width="473" Grid.Column="1" VerticalAlignment="Center" Padding="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="FilterSearch" FontSize="22" FontWeight="Medium" Grid.Column="0" KeyUp="SearchKeyUp" BorderThickness="0" Margin="23,10,0,6"/>
+                    <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Padding="0" Click="ButtonSearchClick">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Path Data="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z" 
+                                  Fill="#ffca3e" VerticalAlignment="Center"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" MouseUp="ClientProfileClick" VerticalAlignment="Center"
+                Width="80"
+                CornerRadius="40"
+                Height="80"
+                Background="#ff561c">
+                <TextBlock x:Name="ClientProfile" Text="ВИ" FontSize="26" FontWeight="Medium" Foreground="#ffca3e" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <Image Grid.Column="3" VerticalAlignment="Center" Source="../Image/basket.png" MouseUp="BasketClick"/>
+            <TextBlock x:Name="BasketCount" Text="{Binding .}" Grid.Column="3" FontSize="20" FontWeight="Bold" Foreground="#ff561c" 
+                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="30,30,0,0"/>
+
+        </Grid>
+
+
         <Frame Grid.Row="1" x:Name="Main" x:FieldModifier="public" Source="MainСategoryPage.xaml"/>
     </Grid>
 </Page>

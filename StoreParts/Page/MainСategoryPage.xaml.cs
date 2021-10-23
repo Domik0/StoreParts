@@ -28,7 +28,7 @@ namespace StoreParts.Page
 
         private void SelectCategoryClick(object sender, SelectionChangedEventArgs e)
         {
-            //MainPageInScreen.NavigationService()
+            MainPageInScreen.Navigate(new PageListParts(CategoryListView.SelectedItem as Device));
         }
     }
 }

@@ -23,6 +23,33 @@ namespace StoreParts
         public MainPage()
         {
             InitializeComponent();
+            User user = App.User;
+            ClientProfile.Text = user.Name.Substring(0, 2).ToUpper();
+        }
+
+        private void BasketClick(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClientProfileClick(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonSearchClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SearchKeyUp(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void MainTitle_Click(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
