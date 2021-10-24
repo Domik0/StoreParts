@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StoreParts.Page;
 
 namespace StoreParts
 {
@@ -49,7 +50,7 @@ namespace StoreParts
 
         private void MainTitle_Click(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            MainFrame.Navigate(new MainСategoryPage());
         }
     }
 }

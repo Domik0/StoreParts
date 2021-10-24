@@ -37,12 +37,20 @@ namespace StoreParts.Page
 
         private void SelectNewPartsClick(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (NewPartsListView.SelectedItem != null)
+            {
+                NavigationService.Navigate(new PartPage(NewPartsListView.SelectedItem as Part));
+                NewPartsListView.SelectedItem = null;
+            }
         }
 
         private void SelectBasketPartsClick(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (BasketPartsListView.SelectedItem != null)
+            {
+                NavigationService.Navigate(new PartPage(BasketPartsListView.SelectedItem as Part));
+                BasketPartsListView.SelectedItem = null;
+            }
         }
     }
 }

@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
-      d:DesignHeight="680" d:DesignWidth="1240"
-      Height="680" Width="1240"
+      d:DesignHeight="680" d:DesignWidth="1120"
+      Height="680" Width="1120"
       Title="StartPageScreen">
 
     <Grid Background="#FFFFFF" Height="620">

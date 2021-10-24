@@ -1,0 +1,107 @@
+﻿<Page x:Class="StoreParts.Page.PartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StoreParts.Page"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1120"
+      Height="680" Width="1120"
+      Title="PartPage">
+
+    <Grid Background="#FFFFFF">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="330"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Height="35"
+               Source="../Image/LeftArrow.png" MouseUp="Back_Click"/>
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Title}" 
+                   FontSize="25" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Image Grid.Column="1" Grid.Row="1" Source="{Binding FirstImage.ImagePath}"/>
+
+        <Border Grid.Column="2" Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="15" 
+                Margin="0,0,40,0">
+            <StackPanel Margin="20">
+                <Grid Margin="10">
+                    <Border x:Name="BorderStatusCount" Background="ForestGreen" Width="100" HorizontalAlignment="Left"
+                            BorderBrush="Black" BorderThickness="1.5" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <Path Data="M10.21 14.75C10.303 14.8437 10.4136 14.9181 10.5354 14.9689C10.6573 15.0197 10.788 15.0458 10.92 15.0458C11.052 15.0458 11.1827 15.0197 11.3046 14.9689C11.4264 14.9181 11.537 14.8437 11.63 14.75L15.71 10.67C15.8983 10.4817 16.0041 10.2263 16.0041 9.96C16.0041 9.6937 15.8983 9.4383 15.71 9.25C15.5217 9.0617 15.2663 8.95591 15 8.95591C14.7337 8.95591 14.4783 9.0617 14.29 9.25L10.92 12.63L9.71 11.41C9.5217 11.2217 9.2663 11.1159 9 11.1159C8.7337 11.1159 8.4783 11.2217 8.29 11.41C8.1017 11.5983 7.99591 11.8537 7.99591 12.12C7.99591 12.3863 8.1017 12.6417 8.29 12.83L10.21 14.75ZM21 2H3C2.73478 2 2.48043 2.10536 2.29289 2.29289C2.10536 2.48043 2 2.73478 2 3V21C2 21.2652 2.10536 21.5196 2.29289 21.7071C2.48043 21.8946 2.73478 22 3 22H21C21.2652 22 21.5196 21.8946 21.7071 21.7071C21.8946 21.5196 22 21.2652 22 21V3C22 2.73478 21.8946 2.48043 21.7071 2.29289C21.5196 2.10536 21.2652 2 21 2ZM20 20H4V4H20V20Z" 
+                                  Fill="White"/>
+                            <TextBlock Text="В наличии" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="BorderStatusCountNull" Visibility="Hidden" Background="Red" Width="100" HorizontalAlignment="Left"
+                            BorderBrush="Black" BorderThickness="1.5" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <Path Data="M10.21 14.75C10.303 14.8437 10.4136 14.9181 10.5354 14.9689C10.6573 15.0197 10.788 15.0458 10.92 15.0458C11.052 15.0458 11.1827 15.0197 11.3046 14.9689C11.4264 14.9181 11.537 14.8437 11.63 14.75L15.71 10.67C15.8983 10.4817 16.0041 10.2263 16.0041 9.96C16.0041 9.6937 15.8983 9.4383 15.71 9.25C15.5217 9.0617 15.2663 8.95591 15 8.95591C14.7337 8.95591 14.4783 9.0617 14.29 9.25L10.92 12.63L9.71 11.41C9.5217 11.2217 9.2663 11.1159 9 11.1159C8.7337 11.1159 8.4783 11.2217 8.29 11.41C8.1017 11.5983 7.99591 11.8537 7.99591 12.12C7.99591 12.3863 8.1017 12.6417 8.29 12.83L10.21 14.75ZM21 2H3C2.73478 2 2.48043 2.10536 2.29289 2.29289C2.10536 2.48043 2 2.73478 2 3V21C2 21.2652 2.10536 21.5196 2.29289 21.7071C2.48043 21.8946 2.73478 22 3 22H21C21.2652 22 21.5196 21.8946 21.7071 21.7071C21.8946 21.5196 22 21.2652 22 21V3C22 2.73478 21.8946 2.48043 21.7071 2.29289C21.5196 2.10536 21.2652 2 21 2ZM20 20H4V4H20V20Z" 
+                                  Fill="White"/>
+                            <TextBlock Text="Нет наличии" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding RetailPrice, StringFormat={}{0:# 000.00}}" FontSize="35" FontWeight="Bold"/>
+                    <Image Source="../Image/Ruble.png" Width="25" VerticalAlignment="Center" Margin="5,0"/>
+                    <TextBlock Text="Розничная цена" VerticalAlignment="Center" FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding WholesalePrice, StringFormat={}{0:# 000.00}}" FontSize="35" FontWeight="Bold"/>
+                    <Image Source="../Image/Ruble.png" Width="25" VerticalAlignment="Center" Margin="5,0"/>
+                    <TextBlock Text="Оптовая цена" VerticalAlignment="Center" FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Кол-во:" FontSize="15" FontWeight="Medium" Margin="10,5" VerticalAlignment="Center"/>
+                    <Image Source="../Image/Minus.png" Width="20"/>
+                    <TextBlock Text="{Binding CountStorage}" Margin="5" FontSize="20"/>
+                    <Image Source="../Image/Plus.png" Width="20"/>
+                </StackPanel>
+
+                <Border Height="60" Width="200" x:Name="ButtonBasket" Margin="0,10,0,0"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        CornerRadius="15" MouseUp="ButtonBasket_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../Image/basket.png" Height="50" Margin="0,0,5,0"/>
+                        <TextBlock Text="В корзину" FontSize="25" FontWeight="Medium"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
+                    </StackPanel>
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#ffca3e"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="#ff561c"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+                <TextBlock Text="{Binding Brand.Title, StringFormat='Бренд: {0}'}"
+                           FontSize="15" FontWeight="Medium" Margin="10"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <TextBlock Text="Описание" FontSize="25" FontWeight="Medium"/>
+            <StackPanel Height="1" Background="SlateGray" Margin="10,5"/>
+            <TextBlock Text="{Binding Description, StringFormat='    {0}'}" 
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</Page>

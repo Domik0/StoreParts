@@ -123,6 +123,9 @@
     <Compile Include="Page\PageListParts.xaml.cs">
       <DependentUpon>PageListParts.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page\PartPage.xaml.cs">
+      <DependentUpon>PartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\StartPageScreen.xaml.cs">
       <DependentUpon>StartPageScreen.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page\PartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\StartPageScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -263,6 +270,10 @@
     <Resource Include="Image\NotKnow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\LeftArrow.png" />
+    <Resource Include="Image\Ruble.png" />
+    <Resource Include="Image\Minus.png" />
+    <Resource Include="Image\Plus.png" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
