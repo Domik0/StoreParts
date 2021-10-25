@@ -30,7 +30,7 @@ namespace StoreParts
 
         private void BasketClick(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            MainFrame.Navigate(new PageBasket());
         }
 
         private void ClientProfileClick(object sender, MouseButtonEventArgs e)

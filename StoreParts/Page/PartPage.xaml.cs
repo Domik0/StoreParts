@@ -29,6 +29,11 @@ namespace StoreParts.Page
                 BorderStatusCountNull.Visibility = Visibility.Visible;
                 BorderStatusCount.Visibility = Visibility.Hidden;
             }
+
+            if (part.Description == null)
+            {
+                DescriptionTitle.Text = "Описание отсутвует.";
+            }
         }
 
         private void Back_Click(object sender, MouseButtonEventArgs e)

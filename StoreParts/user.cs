@@ -19,7 +19,7 @@ namespace StoreParts
         public User()
         {
             this.Orders = new HashSet<Order>();
-            this.Parts = new List<Part>();
+            this.BasketParts = new List<Part>();
         }
     
         public int Id { get; set; }
@@ -29,7 +29,7 @@ namespace StoreParts
         public string Password { get; set; }
 
         [NotMapped]
-        public List<Part> Parts { get; set; }
+        public List<Part> BasketParts { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

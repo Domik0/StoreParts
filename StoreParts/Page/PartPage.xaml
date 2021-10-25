@@ -53,13 +53,13 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding RetailPrice, StringFormat={}{0:# 000.00}}" FontSize="35" FontWeight="Bold"/>
-                    <Image Source="../Image/Ruble.png" Width="25" VerticalAlignment="Center" Margin="5,0"/>
+                    <Image Source="../Image/Ruble.png" Width="28" VerticalAlignment="Center" Margin="5,0"/>
                     <TextBlock Text="Розничная цена" VerticalAlignment="Center" FontSize="20"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding WholesalePrice, StringFormat={}{0:# 000.00}}" FontSize="35" FontWeight="Bold"/>
-                    <Image Source="../Image/Ruble.png" Width="25" VerticalAlignment="Center" Margin="5,0"/>
+                    <Image Source="../Image/Ruble.png" Width="28" VerticalAlignment="Center" Margin="5,0"/>
                     <TextBlock Text="Оптовая цена" VerticalAlignment="Center" FontSize="20"/>
                 </StackPanel>
 
@@ -100,7 +100,7 @@
         <StackPanel Grid.Column="1" Grid.Row="2">
             <TextBlock Text="Описание" FontSize="25" FontWeight="Medium"/>
             <StackPanel Height="1" Background="SlateGray" Margin="10,5"/>
-            <TextBlock Text="{Binding Description, StringFormat='    {0}'}" 
+            <TextBlock x:Name="DescriptionTitle" Text="{Binding Description, StringFormat='    {0}'}" 
                        TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
