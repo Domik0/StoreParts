@@ -71,6 +71,110 @@
             </ListView>
         </StackPanel>
 
-        <Frame Grid.Column="1" x:Name="MainPageInScreen" x:FieldModifier="public" Source="StartPageScreen.xaml"/>
+        <Grid Grid.Column="1" Background="#FFFFFF" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row = "0" Text="Новые товары" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
+                                 VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+            <ListView Grid.Row = "1"  BorderThickness="0"
+                  x:Name="NewPartsListView"
+                  SelectionChanged="SelectNewPartsClick">
+                <ListView.Resources>
+                    <ControlTemplate x:Key="ListViewItemNewParts" TargetType="ListViewItem">
+                        <Border x:Name="ListViewElement" CornerRadius="15" Margin="5" Width="230" Height="230"
+                            Background="#C4C4C4" Padding="15">
+                            <Border.ToolTip>
+                                <ToolTip>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </ToolTip>
+                            </Border.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15">
+                                    <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
+                                </Border>
+                                <TextBlock Text="{Binding Title}" Width="150" Height="30" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template" Value="{StaticResource ListViewItemNewParts}"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"
+                                    IsItemsHost="True" Orientation="Horizontal">
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <TextBlock Grid.Row="2" Text="Товары в корзине" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+            <StackPanel x:Name="NotKnowBox" Grid.Row = "3" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
+                <Image Source="../Image/NotKnow.png" Width="150"/>
+                <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
+            </StackPanel>
+
+            <ListView Grid.Row = "3"  BorderThickness="0"
+                  x:Name="BasketPartsListView"
+                  SelectionChanged="SelectBasketPartsClick">
+                <ListView.Resources>
+                    <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
+                        <Border x:Name="ListViewElement" CornerRadius="15" Margin="5" Width="200" Height="200"
+                            Background="#C4C4C4" Padding="15">
+                            <Border.ToolTip>
+                                <ToolTip>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </ToolTip>
+                            </Border.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15">
+                                    <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
+                                </Border>
+                                <TextBlock Text="{Binding Title}" Width="150" Height="50" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template" Value="{StaticResource ListViewItemBasketParts}"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"
+                                    IsItemsHost="True" Orientation="Horizontal">
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

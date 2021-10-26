@@ -20,10 +20,29 @@ namespace StoreParts.Page
     /// </summary>
     public partial class PageListParts : System.Windows.Controls.Page
     {
+        private Device category;
+        private List<Part> parts = new List<Part>();
+
         public PageListParts(Device category)
         {
             InitializeComponent();
-            Block.Text = category.Title;
+            this.category = category;
+            Block.DataContext = category;
+            GeneratePartsCategory();
+            PartsListView.ItemsSource = parts;
+        }
+
+        private void GeneratePartsCategory()
+        {
+            foreach (var sparePart in category.SparePart)
+            {
+                parts.AddRange(sparePart.Parts);
+            }
+        }
+
+        private void ButtonInBasket_Click(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

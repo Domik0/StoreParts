@@ -41,6 +41,8 @@ namespace StoreParts.Page
         public PageBasket()
         {
             InitializeComponent();
+            CountPartInBasket.DataContext = user.BasketParts.Count;
+            SummPartInBasket.DataContext = SumBasket;
         }
 
         private void ButtonOnBack_Click(object sender, RoutedEventArgs e)

@@ -129,9 +129,6 @@
     <Compile Include="Page\PartPage.xaml.cs">
       <DependentUpon>PartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page\StartPageScreen.xaml.cs">
-      <DependentUpon>StartPageScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Page\LogInAndSignUp\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
@@ -219,10 +216,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page\PartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page\StartPageScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
