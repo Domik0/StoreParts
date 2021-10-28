@@ -43,6 +43,15 @@ namespace StoreParts.Page
             InitializeComponent();
             CountPartInBasket.DataContext = user.BasketParts.Count;
             SummPartInBasket.DataContext = SumBasket;
+            if (App.User.BasketParts.Count > 0)
+            {
+                //BasketPartsListView.ItemsSource = App.User.BasketParts;
+            }
+            else
+            {
+                //BasketPartsListView.Visibility = Visibility.Hidden;
+                NotKnowBox.Visibility = Visibility.Visible;
+            }
         }
 
         private void ButtonOnBack_Click(object sender, RoutedEventArgs e)

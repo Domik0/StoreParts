@@ -20,20 +20,33 @@ namespace StoreParts.Page
     /// </summary>
     public partial class PartPage : System.Windows.Controls.Page
     {
+        private Part part;
+        private User user = App.User;
+        int CountPartBasket
+        {
+            get
+            {
+                return App.User.BasketParts.Where(b => b == part).Count();
+            }
+        }
+
         public PartPage(Part part)
         {
+            this.part = part;
             InitializeComponent();
             DataContext = part;
+            CountPartInBasket.DataContext = CountPartBasket;
             if (part.CountStorage == 0)
             {
+                CountTitlePart.Visibility = Visibility.Hidden;
                 BorderStatusCountNull.Visibility = Visibility.Visible;
                 BorderStatusCount.Visibility = Visibility.Hidden;
             }
-
             if (part.Description == null)
             {
                 DescriptionTitle.Text = "Описание отсутвует.";
             }
+            UpdatePlusMinusImage();
         }
 
         private void Back_Click(object sender, MouseButtonEventArgs e)
@@ -41,9 +54,46 @@ namespace StoreParts.Page
             NavigationService.GoBack();
         }
 
-        private void ButtonBasket_Click(object sender, MouseButtonEventArgs e)
+        private void AddInBasket(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            user.BasketParts.Add(part);
+            UpdatePlusMinusImage();
+        }
+
+        private void MinusCountPartBasket(object sender, MouseButtonEventArgs e)
+        {
+            if (CountPartBasket != 0)
+            {
+                user.BasketParts.Remove(part);
+            }
+            UpdatePlusMinusImage();
+        }
+
+        private void PlusCountPartBasket(object sender, MouseButtonEventArgs e)
+        {
+            if (CountPartBasket != 0 && CountPartBasket <= part.CountStorage)
+            {
+                user.BasketParts.Add(part);
+            }
+            UpdatePlusMinusImage();
+        }
+
+        void UpdatePlusMinusImage()
+        {
+            if (CountPartBasket != 0 && CountPartBasket <= part.CountStorage)
+            {
+                ImageMinusPart.Visibility = Visibility.Visible;
+                ImagePlusPart.Visibility = Visibility.Visible;
+            }
+            else if (CountPartBasket == part.CountStorage)
+            {
+                ImagePlusPart.Visibility = Visibility.Hidden;
+            }
+            else if (CountPartBasket == 0)
+            {
+                ImageMinusPart.Visibility = Visibility.Hidden;
+
+            }
         }
     }
 }

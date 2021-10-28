@@ -3,22 +3,171 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
       d:DesignHeight="680" d:DesignWidth="1540"
       Height="680" Width="1540"
       Title="PageListParts"
       Background="White">
+    <Page.Resources>
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Height="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" 
+                                Background="Gray"  
+                                BorderThickness="1" 
+                                BorderBrush="Gray"   
+                                Height="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse Height="20" Width="20" Fill="Black"></Ellipse>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Track Grid.Row="1" x:Name="PART_Track">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}"  />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1">
-            <TextBlock x:Name="Block" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="#ff850a" FontWeight="Bold" FontSize="35"
+
+        <StackPanel Grid.Column="0">
+            <TextBlock x:Name="Block" Text="Фильтр" Foreground="#ff850a" FontWeight="Bold" FontSize="35" Margin="0,20"
+                       VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <StackPanel Name="StackBrandComboBox" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,10">
+                <TextBlock Text="Бренд" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <xctk:CheckComboBox Name="BrandComboBox" Height="50" Width="200" FontSize="16" Margin="0,10,0,0"
+                                    HorizontalAlignment="Left" 
+                                    HorizontalContentAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    DisplayMemberPath="Title"
+                                    SelectedMemberPath="Selected"/>
+            </StackPanel>
+            <StackPanel Name="StacSparePartComboBox" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,10">
+                <TextBlock Text="Запчасть" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <xctk:CheckComboBox Name="SparePartComboBox" Height="50" Width="200" FontSize="16" Margin="0,10,0,0"
+                                    HorizontalAlignment="Left" 
+                                    HorizontalContentAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    DisplayMemberPath="Title"
+                                    SelectedMemberPath="Selected"/>
+            </StackPanel>
+            <StackPanel Name="StacCost" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,10">
+                <TextBlock Text="Цена" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <Slider Style="{StaticResource Horizontal_Slider}" 
+                        VerticalAlignment="Center" 
+                        Name="priceSlider"
+                        Value="0"
+                        Width="200"
+                        IsSnapToTickEnabled="True"
+                        Maximum="100000"
+                        Margin="0,10,0,0"/>
+            </StackPanel>
+            <StackPanel Name="StacSort" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,10">
+                <TextBlock Text="Сортировка" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <ComboBox x:Name="ComboBox"  Height="50" Width="200" FontSize="16" Margin="0,10,0,0"
+                                     HorizontalAlignment="Left" SelectedIndex="0"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <Border Height="60" Width="200" x:Name="ButtonBasket" Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    CornerRadius="15" MouseUp="UpdateList">
+                <TextBlock Text="Применить" FontSize="25" FontWeight="Medium"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#ffca3e"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="#ff561c"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Button Width="200" Height="40" Margin="20,10" HorizontalAlignment="Center"
+                    Content="Сбросить фильтры" FontSize="20" FontWeight="Bold" Background="White" BorderThickness="0" Click="ResetFiter"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Background="Gray" Margin="0,50"/>
+
+        <StackPanel Grid.Column="2">
+            <TextBlock x:Name="TitleCategory" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="#ff850a" FontWeight="Bold" FontSize="35"
                        VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,0,0,0"/>
-            <ListView x:Name="PartsListView" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="PartsListView" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="605">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Name="uniformGrid" Columns="5" Margin="5" HorizontalAlignment="Center"/>
@@ -26,49 +175,57 @@
                 </ItemsControl.ItemsPanel>
                 <ListView.Resources>
                     <ControlTemplate x:Key="ListViewItemParts" TargetType="ListViewItem">
-                        <Border x:Name="ListViewElement" CornerRadius="15" Margin="5" Width="230" Height="292"
-                                Background="#C4C4C4" Padding="15">
-                            <Border.ToolTip>
-                                <ToolTip>
-                                    <TextBlock Text="{Binding Title}"/>
-                                </ToolTip>
-                            </Border.ToolTip>
-                            <StackPanel Orientation="Vertical">
-                                <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15">
-                                    <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
-                                </Border>
-                                <TextBlock Text="{Binding Title}" Width="150" Height="30" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding RetailPrice, StringFormat='{}{0} ₽'}" TextAlignment="Center" Foreground="#ff850a" FontWeight="Bold" FontSize="20"/>
-                                <Border Height="50" Width="150" x:Name="ButtonOrder" Margin="0,10,0,0"
-                                        HorizontalAlignment="Center" VerticalAlignment="Bottom" DataContext="{Binding .}"
-                                        CornerRadius="15" MouseUp="ButtonInBasket_Click">
-                                        <TextBlock Text="Добавить в корзину" FontSize="15" TextAlignment="Center" FontWeight="Medium" Width="130"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" TextWrapping="Wrap"/>
-                                        <Border.Style>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#ffca3e"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="False">
-                                                    <Setter Property="Background" Value="#ff561c"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
+                        <Grid x:Name="ListViewElement">
+                            <Border CornerRadius="15" Margin="5" Width="230" Height="292"
+                                    Padding="15" MouseUp="PartClick">
+                                <Border.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </ToolTip>
+                                </Border.ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15">
+                                        <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding Title}" Width="150" Height="30" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding RetailPrice, StringFormat='{}{0} ₽'}" TextAlignment="Center" Foreground="#ff850a" FontWeight="Bold" FontSize="20"/>
+                                </StackPanel>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#8D8D8D"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter Property="Background" Value="#C4C4C4"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <StackPanel Height="50" Width="150" x:Name="CountPartInOrder" Margin="0,0,0,20"
+                                        HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
                             </StackPanel>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
-                            </Trigger>
-
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="ListViewElement" Value="#8D8D8D"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                            <Border Height="50" Width="150" x:Name="ButtonOrder" Margin="0,0,0,20"
+                                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                    CornerRadius="15" MouseUp="ButtonInBasket_Click">
+                                <TextBlock Text="Добавить в корзину" FontSize="15" TextAlignment="Center" FontWeight="Medium" Width="130"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" TextWrapping="Wrap"/>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#ffca3e"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter Property="Background" Value="#ff561c"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Grid>
                     </ControlTemplate>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource ListViewItemParts}"/>

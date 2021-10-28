@@ -60,6 +60,12 @@
                 </Border>
             </StackPanel>
         </Border>
-        
+
+        <StackPanel x:Name="NotKnowBox" Grid.Row = "1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
+            <Image Source="../Image/NotKnow.png" Width="150" Margin="100,0"/>
+            <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
+        </StackPanel>
+
+
     </Grid>
 </Page>

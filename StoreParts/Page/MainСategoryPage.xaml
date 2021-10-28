@@ -19,14 +19,14 @@
             <TextBlock Text="Каталог товаров" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
                    VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-            <ListView BorderThickness="0"
+            <ListView BorderThickness="0" ScrollViewer.CanContentScroll="False"
                   x:Name="CategoryListView"
                   SelectionChanged="SelectCategoryClick"
                   Margin="0,0,0,0">
                 <ListView.Template>
                     <ControlTemplate TargetType="ListView">
                         <Border CornerRadius="30" Background="#C4C4C4">
-                            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" >
                                 <ItemsPresenter/>
                             </ScrollViewer>
                         </Border>
