@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,32 +20,74 @@ namespace StoreParts.Page
     /// <summary>
     /// Interaction logic for PageBasket.xaml
     /// </summary>
-    public partial class PageBasket : System.Windows.Controls.Page
+    public partial class PageBasket : System.Windows.Controls.Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private User user = App.User;
-        private double? SumBasket
+        private int countBasket = 0;
+        private double? sumBasket = 0.0;
+        private List<(Part part, int count)> listBasket = new List<(Part part, int count)>();
+
+        public int CountBasket
         {
             get
             {
-                double? sum = 0.0;
-                foreach (var item in user.BasketParts)
-                {
-                    sum += item.RetailPrice;
-                }
-                return sum;
+                return countBasket;
             }
             set
             {
-                SumBasket = value;
+                countBasket = value;
+                OnPropertyChanged();
+            }
+        }
+        public double? SumBasket
+        {
+            get
+            {
+                return sumBasket;
+            }
+            set
+            {
+                sumBasket = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<(Part part, int count)> ListBasket
+        {
+            get
+            {
+                return listBasket;
+            }
+            set
+            {
+                listBasket = value;
+                OnPropertyChanged();
             }
         }
 
         public PageBasket()
         {
             InitializeComponent();
-            CountPartInBasket.DataContext = user.BasketParts.Count;
-            SummPartInBasket.DataContext = SumBasket;
-            if (App.User.BasketParts.Count > 0)
+            GenerateBasket();
+            DataContext = this;
+            var item = BasketPartsListView.ItemsSource;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        void GenerateBasket()
+        {
+            double? sum = 0.0;
+            foreach (var item in user.BasketParts)
+            {
+                sum += item.RetailPrice;
+            }
+            SumBasket = sum;
+            CountBasket = App.User.BasketParts.Count;
+            if (CountBasket > 0)
             {
                 BasketPartsListView.ItemsSource = App.User.BasketParts;
             }
@@ -59,12 +103,7 @@ namespace StoreParts.Page
             NavigationService.Navigate(new MainСategoryPage());
         }
 
-        private void ButtonOrder_Click(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        
-        private void SelectBasketPartsClick(object sender, SelectionChangedEventArgs e)
+        private void OrderClick(object sender, MouseButtonEventArgs e)
         {
             throw new NotImplementedException();
         }

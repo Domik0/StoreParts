@@ -25,13 +25,24 @@ namespace StoreParts.Page
         public event PropertyChangedEventHandler PropertyChanged;
         private Part part;
         private User user = App.User;
-        private int countPartBasket = 0;
-
-        private int CountPartBasket
+        private int countPartBasket = 1;
+        private int countStoreAndBasket = 0;
+        public int CountStoreAndBasket
         {
             get
             {
-                //return App.User.BasketParts.Where(b => b == part).Count();
+                return countStoreAndBasket;
+            }
+            set
+            {
+                countStoreAndBasket = value;
+                OnPropertyChanged();
+            }
+        }
+        public int CountPartBasket
+        {
+            get
+            {
                 return countPartBasket;
             }
             set
@@ -44,9 +55,11 @@ namespace StoreParts.Page
         public PartPage(Part part)
         {
             this.part = part;
+            CountStoreAndBasket = (int) (part.CountStorage - App.User.BasketParts.Count(b => b == part));
             InitializeComponent();
             DataContext = part;
-            CountPartInBasket.DataContext = CountPartBasket;
+            CountPartInBasket.DataContext = this;
+            CountTitlePart.DataContext = this;
             if (part.CountStorage == 0)
             {
                 CountTitlePart.Visibility = Visibility.Hidden;
@@ -74,15 +87,20 @@ namespace StoreParts.Page
 
         private void AddInBasket(object sender, MouseButtonEventArgs e)
         {
-            for (int i = 0; i < CountPartBasket; i++)
+            if (CountStoreAndBasket >= CountPartBasket)
             {
-                user.BasketParts.Add(part);
+                for (int i = 0; i < CountPartBasket; i++)
+                {
+                    user.BasketParts.Add(part);
+                }
+                CountStoreAndBasket = (int)(part.CountStorage - App.User.BasketParts.Count(b => b == part));
+                UpdatePlusMinusImage();
+                if (CountPartBasket > CountStoreAndBasket)
+                {
+                    CountPartBasket = CountStoreAndBasket;
+                    ImagePlusPart.Visibility = Visibility.Hidden;
+                }
             }
-            //if (CountPartBasket >= 0 && CountPartBasket <= part.CountStorage)
-            //{
-            //    user.BasketParts.Add(part);
-            //}
-            //UpdatePlusMinusImage();
         }
 
         private void MinusCountPartBasket(object sender, MouseButtonEventArgs e)
@@ -90,36 +108,35 @@ namespace StoreParts.Page
             if (CountPartBasket != 0)
             {
                 CountPartBasket -= 1;
-                //user.BasketParts.Remove(part);
             }
             UpdatePlusMinusImage();
         }
 
         private void PlusCountPartBasket(object sender, MouseButtonEventArgs e)
         {
-            if (CountPartBasket >= 0 && CountPartBasket <= part.CountStorage)
+            if (CountPartBasket >= 0 && CountPartBasket <= CountStoreAndBasket)
             {
                 CountPartBasket += 1;
-                //user.BasketParts.Add(part);
             }
             UpdatePlusMinusImage();
         }
 
         void UpdatePlusMinusImage()
         {
-            if (CountPartBasket != 0 && CountPartBasket <= part.CountStorage)
+            if (CountPartBasket != 0 && CountPartBasket < CountStoreAndBasket)
             {
                 ImageMinusPart.Visibility = Visibility.Visible;
                 ImagePlusPart.Visibility = Visibility.Visible;
             }
-            else if (CountPartBasket == part.CountStorage)
+            else if (CountPartBasket == CountStoreAndBasket)
             {
                 ImagePlusPart.Visibility = Visibility.Hidden;
+                ImageMinusPart.Visibility = Visibility.Visible;
             }
             else if (CountPartBasket == 0)
             {
                 ImageMinusPart.Visibility = Visibility.Hidden;
-
+                ImagePlusPart.Visibility = Visibility.Visible;
             }
         }
     }

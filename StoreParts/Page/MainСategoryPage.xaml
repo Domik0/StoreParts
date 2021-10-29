@@ -83,7 +83,7 @@
                                  VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
             <ListView Grid.Row = "1"  BorderThickness="0"
-                  x:Name="NewPartsListView"
+                  x:Name="NewPartsListView" ScrollViewer.CanContentScroll="False"
                   SelectionChanged="SelectNewPartsClick">
                 <ListView.Resources>
                     <ControlTemplate x:Key="ListViewItemNewParts" TargetType="ListViewItem">
@@ -129,7 +129,7 @@
                                  VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
             <ListView Grid.Row = "3"  BorderThickness="0"
-                  x:Name="BasketPartsListView"
+                  x:Name="BasketPartsListView" ScrollViewer.CanContentScroll="False"
                   SelectionChanged="SelectBasketPartsClick">
                 <ListView.Resources>
                     <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">

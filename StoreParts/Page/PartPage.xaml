@@ -51,7 +51,7 @@
                             </StackPanel>
                         </Border>
                     </Grid>
-                    <TextBlock x:Name="CountTitlePart" Text="{Binding CountStorage, StringFormat='{}В наличии: {0}'}" VerticalAlignment="Center"
+                    <TextBlock x:Name="CountTitlePart" Text="{Binding CountStoreAndBasket, StringFormat='{}В наличии: {0}', Mode=TwoWay}" VerticalAlignment="Center"
                                FontSize="20" FontWeight="Medium"/>
                 </StackPanel>
 
@@ -70,7 +70,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Кол-во:" FontSize="15" FontWeight="Medium" Margin="10,5" VerticalAlignment="Center"/>
                     <Image x:Name="ImageMinusPart" Source="../Image/Minus.png" Width="20" MouseUp="MinusCountPartBasket"/>
-                    <TextBlock x:Name="CountPartInBasket" Text="{Binding ., Mode=TwoWay}"  Margin="5" FontSize="20"/>
+                    <TextBlock x:Name="CountPartInBasket" Text="{Binding CountPartBasket, Mode=TwoWay}"  Margin="5" FontSize="20"/>
                     <Image x:Name="ImagePlusPart" Source="../Image/Plus.png" Width="20" MouseUp="PlusCountPartBasket"/>
                 </StackPanel>
 

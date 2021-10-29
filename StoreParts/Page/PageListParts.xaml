@@ -169,7 +169,7 @@
         <StackPanel Grid.Column="2">
             <TextBlock x:Name="TitleCategory" Text="{Binding Title, StringFormat='Запчасти для {0}'}" Foreground="#ff850a" FontWeight="Bold" FontSize="35"
                        VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,0,0,0"/>
-            <ListView x:Name="PartsListView" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="605">
+            <ListView x:Name="PartsListView" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="605" ScrollViewer.CanContentScroll="False">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Name="uniformGrid" Columns="5" Margin="5" HorizontalAlignment="Center"/>

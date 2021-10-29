@@ -35,8 +35,7 @@
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row = "1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderThickness="0"
-                  x:Name="BasketPartsListView"
-                  SelectionChanged="SelectBasketPartsClick">
+                  x:Name="BasketPartsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding ListBasket, Mode=TwoWay}">
             <ListView.Resources>
                 <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
                     <Border x:Name="ListViewElement" CornerRadius="15" Margin="100,20" Width="800" Height="100"
@@ -74,14 +73,14 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Корзина" FontSize="28" FontWeight="Medium"/>
-                    <TextBlock x:Name="CountPartInBasket" Text="{Binding ., StringFormat='{}{0} товаров.'}" FontSize="15"/>
+                    <TextBlock x:Name="CountPartInBasket" Text="{Binding CountBasket, StringFormat='{}{0} товаров.', Mode=TwoWay}" FontSize="15"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="SummPartInBasket" Text="{Binding ., StringFormat='{}{0} ₽'}" FontSize="20" FontWeight="Medium"/>
+                        <TextBlock x:Name="SummPartInBasket" Text="{Binding SumBasket, StringFormat='{}{0} ₽', Mode=TwoWay}" FontSize="20" FontWeight="Medium"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Height="80" Width="230" x:Name="ButtonOrder" Margin="40,0"
                         VerticalAlignment="Center"
-                        CornerRadius="15" MouseUp="ButtonOrder_Click">
+                        CornerRadius="15" MouseUp="OrderClick">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Image Source="../Image/CreditCard.png" Height="30" Margin="0,0,10,0"/>
                         <TextBlock Text="Оформить заказ" FontSize="25" FontWeight="Medium" Width="130"

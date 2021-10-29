@@ -10,6 +10,67 @@
       Title="PageOrder">
 
     <Grid Background="#FFFFFF">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Height="35"
+               Source="../Image/LeftArrow.png" MouseUp="Back_Click"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Оформление заказа" Margin="40,0" 
+                   FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя пользователя:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding user.Name, Mode=OneTime}" FontSize="30" Width="300"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Телефон:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding user.Phone, Mode=OneTime}" FontSize="30" Width="300"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Почта:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding user.Email, Mode=OneTime}" FontSize="30" Width="300"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Тип оплаты:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ComboBoxTypePay" FontSize="30" Width="300"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Комментарий:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="TextBoxComments" FontSize="30" Width="300" Height="130"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Выбор адреса:" FontSize="30" 
+                       VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" x:Name="ComboBoxStore" FontSize="30" Width="300"
+                      VerticalAlignment="Center"/>
+            <Button Grid.Column="1" Grid.Row="6" Content="Заказать" FontSize="20"
+                    HorizontalAlignment="Center" Width="200" Height="35" Click="CreateOrder"/>
+        </Grid>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Background="Gray" Margin="0,50"/>
+
+
+        <TextBlock Grid.Column="3" Grid.Row="0" Text="Список товаров" Margin="40,0" 
+                   FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
     </Grid>
 </Page>

@@ -20,9 +20,23 @@ namespace StoreParts.Page
     /// </summary>
     public partial class PageOrder : System.Windows.Controls.Page
     {
+        private User user = App.User;
+        private Order order = new Order();
+
         public PageOrder()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+
+        private void Back_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+        
+        private void CreateOrder(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
