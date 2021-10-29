@@ -45,11 +45,11 @@ namespace StoreParts.Page
             SummPartInBasket.DataContext = SumBasket;
             if (App.User.BasketParts.Count > 0)
             {
-                //BasketPartsListView.ItemsSource = App.User.BasketParts;
+                BasketPartsListView.ItemsSource = App.User.BasketParts;
             }
             else
             {
-                //BasketPartsListView.Visibility = Visibility.Hidden;
+                BasketPartsListView.Visibility = Visibility.Hidden;
                 NotKnowBox.Visibility = Visibility.Visible;
             }
         }
@@ -60,6 +60,11 @@ namespace StoreParts.Page
         }
 
         private void ButtonOrder_Click(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private void SelectBasketPartsClick(object sender, SelectionChangedEventArgs e)
         {
             throw new NotImplementedException();
         }

@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StoreParts.Page"
       mc:Ignorable="d" 
-      d:DesignHeight="680" d:DesignWidth="1120"
-      Height="680" Width="1120"
+      d:DesignHeight="680" d:DesignWidth="1540"
+      Height="680" Width="1540"
       Title="PartPage">
 
     <Grid Background="#FFFFFF">
@@ -70,7 +70,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Кол-во:" FontSize="15" FontWeight="Medium" Margin="10,5" VerticalAlignment="Center"/>
                     <Image x:Name="ImageMinusPart" Source="../Image/Minus.png" Width="20" MouseUp="MinusCountPartBasket"/>
-                    <TextBlock x:Name="CountPartInBasket" Text="{Binding .}" Margin="5" FontSize="20"/>
+                    <TextBlock x:Name="CountPartInBasket" Text="{Binding ., Mode=TwoWay}"  Margin="5" FontSize="20"/>
                     <Image x:Name="ImagePlusPart" Source="../Image/Plus.png" Width="20" MouseUp="PlusCountPartBasket"/>
                 </StackPanel>
 

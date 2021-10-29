@@ -143,11 +143,17 @@
     <Compile Include="Page\PageListParts.xaml.cs">
       <DependentUpon>PageListParts.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page\PageOrder.xaml.cs">
+      <DependentUpon>PageOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\PartPage.xaml.cs">
       <DependentUpon>PartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\LogInAndSignUp\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Part.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -232,7 +238,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page\PageOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\PartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

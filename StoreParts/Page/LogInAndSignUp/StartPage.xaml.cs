@@ -100,7 +100,7 @@ namespace StoreParts.Page.LogIn_and_SignUp
 
         private void LogInClick(object sender, MouseButtonEventArgs e)
         {
-            var users = App.db.Users.Where(u => u.Phone == UserNameText.Text).ToList();
+            var users = App.db.Users.Where(u => u.Phone == UserNameText.Text).Include(u => u.Orders).ToList();
             if (users.Count() != 0 && users.First().Password == PasswordBoxText.Password)
             {
                 App.User = users.First();

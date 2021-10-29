@@ -9,7 +9,7 @@
       Height="680" Width="1540"
       Title="MainСategoryPage">
 
-    <Grid Background="#FFFFFF" Margin="10">
+    <Grid Background="#FFFFFF" Margin="10" Height="640" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition/>
@@ -21,8 +21,7 @@
 
             <ListView BorderThickness="0" ScrollViewer.CanContentScroll="False"
                   x:Name="CategoryListView"
-                  SelectionChanged="SelectCategoryClick"
-                  Margin="0,0,0,0">
+                  SelectionChanged="SelectCategoryClick">
                 <ListView.Template>
                     <ControlTemplate TargetType="ListView">
                         <Border CornerRadius="30" Background="#C4C4C4">
@@ -71,7 +70,8 @@
             </ListView>
         </StackPanel>
 
-        <Grid Grid.Column="1" Background="#FFFFFF" Margin="15">
+
+        <Grid Grid.Column="1" Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="*"/>
@@ -126,20 +126,15 @@
             </ListView>
 
             <TextBlock Grid.Row="2" Text="Товары в корзине" Foreground="#ff850a" FontWeight="Bold" FontSize="30"
-                   VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-
-            <StackPanel x:Name="NotKnowBox" Grid.Row = "3" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
-                <Image Source="../Image/NotKnow.png" Width="150"/>
-                <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
-            </StackPanel>
+                                 VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
             <ListView Grid.Row = "3"  BorderThickness="0"
                   x:Name="BasketPartsListView"
                   SelectionChanged="SelectBasketPartsClick">
                 <ListView.Resources>
                     <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
-                        <Border x:Name="ListViewElement" CornerRadius="15" Margin="5" Width="200" Height="200"
-                            Background="#C4C4C4" Padding="15">
+                        <Border x:Name="ListViewElement" CornerRadius="15" Margin="5" Width="230" Height="230"
+                                Background="#C4C4C4" Padding="15">
                             <Border.ToolTip>
                                 <ToolTip>
                                     <TextBlock Text="{Binding Title}"/>
@@ -149,7 +144,7 @@
                                 <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15">
                                     <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
                                 </Border>
-                                <TextBlock Text="{Binding Title}" Width="150" Height="50" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Title}" Width="150" Height="30" TextWrapping="Wrap"/>
                             </StackPanel>
                         </Border>
 
@@ -175,6 +170,11 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
+
+            <StackPanel x:Name="NotKnowBox" Grid.Row = "3" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
+                <Image Source="../Image/NotKnow.png" Width="150"/>
+                <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

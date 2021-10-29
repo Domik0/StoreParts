@@ -35,7 +35,7 @@ namespace StoreParts
 
         private void ClientProfileClick(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            MainFrame.Navigate(new ProfilePage());
         }
 
         private void ButtonSearchClick(object sender, RoutedEventArgs e)

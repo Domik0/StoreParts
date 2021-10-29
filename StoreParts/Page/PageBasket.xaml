@@ -11,13 +11,13 @@
 
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="170"/>
             <RowDefinition/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Button Grid.Column="0" Grid.Row="0" Width="280" Height="60" Margin="20,10" HorizontalAlignment="Left" VerticalAlignment="Top" 
@@ -29,16 +29,58 @@
             <StackPanel Height="3.5" Background="SlateGray" HorizontalAlignment="Left" Width="300"/>
         </StackPanel>
 
-        <Border  Grid.Column="1" Grid.Row="2" CornerRadius="15" Margin="5" Width="230" Height="210"
-                 Background="#C4C4C4" Padding="15">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Корзина" FontSize="28" FontWeight="Medium"/>
-                <TextBlock x:Name="CountPartInBasket" Text="{Binding ., StringFormat='{}{0} товаров.'}" FontSize="15"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="SummPartInBasket" Text="{Binding ., StringFormat='{}{0} ₽'}" FontSize="20" FontWeight="Medium"/>
+        <StackPanel x:Name="NotKnowBox" Grid.Row = "1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
+            <Image Source="../Image/NotKnow.png" Width="150" Margin="100,0"/>
+            <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
+        </StackPanel>
+
+        <ListView Grid.Column="0" Grid.Row = "1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderThickness="0"
+                  x:Name="BasketPartsListView"
+                  SelectionChanged="SelectBasketPartsClick">
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
+                    <Border x:Name="ListViewElement" CornerRadius="15" Margin="100,20" Width="800" Height="100"
+                            Background="#C4C4C4">
+                        <Border.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="{Binding Title}"/>
+                            </ToolTip>
+                        </Border.ToolTip>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15"
+                                    Margin="15">
+                                <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
+                            </Border>
+                            <TextBlock Text="{Binding Title}" Width="500" Height="50" TextWrapping="Wrap" Margin="15"/>
+
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemBasketParts}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    IsItemsHost="True" Orientation="Vertical">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+
+        <Border  Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" CornerRadius="15" Width="420" Height="150"
+                 Background="#C4C4C4" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Корзина" FontSize="28" FontWeight="Medium"/>
+                    <TextBlock x:Name="CountPartInBasket" Text="{Binding ., StringFormat='{}{0} товаров.'}" FontSize="15"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="SummPartInBasket" Text="{Binding ., StringFormat='{}{0} ₽'}" FontSize="20" FontWeight="Medium"/>
+                    </StackPanel>
                 </StackPanel>
-                <Border Height="80" Width="200" x:Name="ButtonOrder" Margin="0,10,0,0"
-                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                <Border Height="80" Width="230" x:Name="ButtonOrder" Margin="40,0"
+                        VerticalAlignment="Center"
                         CornerRadius="15" MouseUp="ButtonOrder_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Image Source="../Image/CreditCard.png" Height="30" Margin="0,0,10,0"/>
@@ -60,12 +102,5 @@
                 </Border>
             </StackPanel>
         </Border>
-
-        <StackPanel x:Name="NotKnowBox" Grid.Row = "1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
-            <Image Source="../Image/NotKnow.png" Width="150" Margin="100,0"/>
-            <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
-        </StackPanel>
-
-
     </Grid>
 </Page>

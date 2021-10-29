@@ -40,7 +40,6 @@ namespace StoreParts.Page
             GeneratePartsCategory();
             PartsListView.ItemsSource = parts;
             ComboBox.ItemsSource = comboBoxList;
-            ;
         }
 
         private void GeneratePartsCategory()
