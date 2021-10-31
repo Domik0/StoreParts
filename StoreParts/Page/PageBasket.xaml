@@ -34,24 +34,37 @@
             <TextBlock Text="Корзина пуста" HorizontalAlignment="Center" FontSize="25"/>
         </StackPanel>
 
-        <ListView Grid.Column="0" Grid.Row = "1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderThickness="0"
+        <ListView Grid.Column="0" Grid.Row = "1" Grid.ColumnSpan="2" Grid.RowSpan="2"  BorderThickness="0" Height="480" VerticalAlignment="Top"
                   x:Name="BasketPartsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding ListBasket, Mode=TwoWay}">
+            <ListView.Template>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
             <ListView.Resources>
                 <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
-                    <Border x:Name="ListViewElement" CornerRadius="15" Margin="100,20" Width="800" Height="100"
+                    <Border x:Name="ListViewElement" CornerRadius="15" Margin="100,20" Width="870" Height="100"
                             Background="#C4C4C4">
                         <Border.ToolTip>
                             <ToolTip>
-                                <TextBlock Text="{Binding Title}"/>
+                                <TextBlock Text="{Binding part.Title}"/>
                             </ToolTip>
                         </Border.ToolTip>
                         <StackPanel Orientation="Horizontal">
                             <Border BorderBrush="#ff850a" Background="White" BorderThickness="1.5" CornerRadius="15"
                                     Margin="15">
-                                <Image Source="{Binding FirstImage.ImagePath}" Margin="7.5"/>
+                                <Image Source="{Binding part.FirstImage.ImagePath}" Margin="7.5"/>
                             </Border>
-                            <TextBlock Text="{Binding Title}" Width="500" Height="50" TextWrapping="Wrap" Margin="15"/>
-
+                            <TextBlock Text="{Binding part.Title}" Width="500" Height="40" TextWrapping="Wrap" FontSize="15" Margin="18"/>
+                            <TextBlock Text="{Binding part.RetailPrice, StringFormat='{}{0} ₽'}" Width="80" FontSize="20" FontWeight="Medium"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="ImageMinusPart" Source="../Image/Minus.png" Width="20" MouseUp="MinusCountPartBasket"/>
+                                <TextBlock x:Name="CountPartInBasket" Text="{Binding count, Mode=TwoWay}" VerticalAlignment="Center" Margin="5" FontSize="20"/>
+                                <Image x:Name="ImagePlusPart" Source="../Image/Plus.png" Width="20" MouseUp="PlusCountPartBasket"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

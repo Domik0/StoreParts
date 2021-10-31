@@ -40,12 +40,15 @@ namespace StoreParts
 
         private void ButtonSearchClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MainFrame.Navigate(new PageListParts(FilterSearch.Text));
         }
 
         private void SearchKeyUp(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Key == Key.Return)
+            {
+                MainFrame.Navigate(new PageListParts(FilterSearch.Text));
+            }
         }
 
         private void MainTitle_Click(object sender, MouseButtonEventArgs e)

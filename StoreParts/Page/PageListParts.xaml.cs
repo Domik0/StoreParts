@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit.Primitives;
 
 namespace StoreParts.Page
 {
@@ -20,6 +22,7 @@ namespace StoreParts.Page
     /// </summary>
     public partial class PageListParts : System.Windows.Controls.Page
     {
+        private string search;
         private Device category;
         private List<Part> parts = new List<Part>();
         private User user = App.User;
@@ -39,11 +42,27 @@ namespace StoreParts.Page
             TitleCategory.DataContext = category;
             GeneratePartsCategory();
             PartsListView.ItemsSource = parts;
-            ComboBox.ItemsSource = comboBoxList;
+            ComboBoxSort.ItemsSource = comboBoxList;
+        }
+
+        public PageListParts(string search)
+        {
+            this.search = search;
+            InitializeComponent();
+            BrandComboBox.ItemsSource = App.db.Brands.ToList();
+            SparePartComboBox.ItemsSource = App.db.SpareParts.ToList();
+            TitleCategory.Text = $"Результат по поиску \"{TitleCategory}\"";
+            parts = App.db.Parts.Where(p => p.Brand.Title.ToLower().Contains(search.ToLower()) 
+                                                || p.Title.ToLower().Contains(search.ToLower()) 
+                                                || p.Description.ToLower().Contains(search.ToLower()) 
+                                                || p.SparePart.Title.ToLower().Contains(search.ToLower())).ToList();
+            PartsListView.ItemsSource = parts;
+            ComboBoxSort.ItemsSource = comboBoxList;
         }
 
         private void GeneratePartsCategory()
         {
+            parts = new List<Part>();
             foreach (var sparePart in category.SparePart)
             {
                 parts.AddRange(sparePart.Parts);
@@ -62,12 +81,53 @@ namespace StoreParts.Page
         
         private void UpdateList(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            if (search != null)
+            {
+                GeneratePartsCategory();
+            }
+            else
+            {
+                parts = App.db.Parts.Where(p => p.Brand.Title.ToLower().Contains(search.ToLower())
+                                                || p.Title.ToLower().Contains(search.ToLower())
+                                                || p.Description.ToLower().Contains(search.ToLower())
+                                                || p.SparePart.Title.ToLower().Contains(search.ToLower())).ToList();
+            }
+            List<Part> partsFilter = new List<Part>();
+            foreach (var part in parts)
+            {
+                if ((BrandComboBox.SelectedItems.Contains(part.Brand) || BrandComboBox.SelectedItems.Count == 0) &&
+                    (SparePartComboBox.SelectedItems.Contains(part.SparePart) || SparePartComboBox.SelectedItems.Count == 0) &&
+                    priceSlider.Value >= part.RetailPrice)
+                {
+                    partsFilter.Add(part);
+                }
+            }
+
+            PartsListView.ItemsSource = null;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PartsListView.ItemsSource);
+            switch (ComboBoxSort.SelectedItem)
+            {
+                case "По умолчанию":
+                    PartsListView.ItemsSource = partsFilter;
+                    break;
+                case "По убыванию":
+                    PartsListView.ItemsSource = partsFilter;
+                    view.SortDescriptions.Add(new SortDescription("RetailPrice", ListSortDirection.Descending));
+                    break;
+                case "По возрастанияю":
+                    PartsListView.ItemsSource = partsFilter;
+                    view.SortDescriptions.Add(new SortDescription("RetailPrice", ListSortDirection.Ascending));
+                    break;
+            }
         }
 
         private void ResetFiter(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            PartsListView.ItemsSource = parts;
+            ComboBoxSort.SelectedItem = "По умолчанию";
+            priceSlider.Value = 15000;
+            SparePartComboBox.SelectedItem = null;
+            BrandComboBox.SelectedItem = null;
         }
     }
 }

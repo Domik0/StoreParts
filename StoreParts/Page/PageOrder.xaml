@@ -25,7 +25,7 @@
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Оформление заказа" Margin="40,0" 
                    FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Height="600" Grid.Column="1" Grid.Row="1" x:Name="GridInfo">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -36,41 +36,88 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="150"/>
-                <RowDefinition Height="90"/>
                 <RowDefinition Height="70"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя пользователя:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding user.Name, Mode=OneTime}" FontSize="30" Width="300"
-                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" FontSize="30" Width="300"
+                               VerticalAlignment="Center"/>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Телефон:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding user.Phone, Mode=OneTime}" FontSize="30" Width="300"
-                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Phone}" FontSize="30" Width="300"
+                               VerticalAlignment="Center"/>
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Почта:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding user.Email, Mode=OneTime}" FontSize="30" Width="300"
-                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Email}" FontSize="30" Width="300"
+                               VerticalAlignment="Center"/>
             <TextBlock Grid.Column="0" Grid.Row="3" Text="Тип оплаты:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ComboBoxTypePay" FontSize="30" Width="300"
-                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ComboBoxTypePay" FontSize="20" Width="300"
+                               VerticalAlignment="Center" SelectedIndex="0"/>
             <TextBlock Grid.Column="0" Grid.Row="4" Text="Комментарий:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="4" x:Name="TextBoxComments" FontSize="30" Width="300" Height="130"
-                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="TextBoxComments" FontSize="15" Width="300" Height="130"
+                               VerticalAlignment="Center"/>
             <TextBlock Grid.Column="0" Grid.Row="5" Text="Выбор адреса:" FontSize="30" 
-                       VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" Grid.Row="5" x:Name="ComboBoxStore" FontSize="30" Width="300"
-                      VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" x:Name="ComboBoxStore" FontSize="20" Width="300"
+                              VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Address}" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" x:Name="TextBlockError" Text="Выберите пункт выдачи!" FontSize="20" FontWeight="Medium" Foreground="Red"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
             <Button Grid.Column="1" Grid.Row="6" Content="Заказать" FontSize="20"
-                    HorizontalAlignment="Center" Width="200" Height="35" Click="CreateOrder"/>
+                            HorizontalAlignment="Center" Width="200" Height="35" Click="CreateOrder"/>
         </Grid>
 
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Background="Gray" Margin="0,50"/>
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="Gray" Margin="0,50"/>
 
 
         <TextBlock Grid.Column="3" Grid.Row="0" Text="Список товаров" Margin="40,0" 
                    FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <ListView Grid.Column="3" Grid.Row = "1" BorderThickness="0" Height="500" VerticalAlignment="Top"
+                  x:Name="BasketPartsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding ListBasket, Mode=TwoWay}">
+            <ListView.Template>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding part.Title}" Width="600" Height="70" TextWrapping="Wrap" FontSize="17" Margin="18"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding part.RetailPrice, StringFormat='{}{0} ₽'}" Width="80" FontSize="20" FontWeight="Medium"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding count, StringFormat='{} x {0}'}" Width="80" FontSize="20" FontWeight="Medium"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemBasketParts}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    IsItemsHost="True" Orientation="Vertical">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <StackPanel Grid.Column="3" Grid.Row = "1" VerticalAlignment="Bottom">
+            <StackPanel Height="2" Background="Gray" Width="350" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+            <TextBlock Text="{Binding SumBasket, StringFormat='{}Итоговая сумма: {0} ₽'}" FontSize="25" FontWeight="Medium"
+                       Margin="0,0,50,50" HorizontalAlignment="Right"/>
+        </StackPanel>
     </Grid>
 </Page>

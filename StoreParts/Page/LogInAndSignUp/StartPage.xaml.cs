@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using StoreParts.Page.Admin;
 
 namespace StoreParts.Page.LogIn_and_SignUp
 {
@@ -104,7 +105,14 @@ namespace StoreParts.Page.LogIn_and_SignUp
             if (users.Count() != 0 && users.First().Password == PasswordBoxText.Password)
             {
                 App.User = users.First();
-                NavigationService.Navigate(new MainPage());
+                if(App.User.AdminStatus == true)
+                {
+                    NavigationService.Navigate(new AdminMainPage());
+                }
+                else
+                {
+                    NavigationService.Navigate(new MainPage());
+                }
             }
             else
             {

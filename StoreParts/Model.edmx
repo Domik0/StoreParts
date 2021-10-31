@@ -47,7 +47,6 @@
           <Property Name="id_spare_part" Type="int" />
           <Property Name="description" Type="varchar" MaxLength="1024" />
           <Property Name="retail_price" Type="double" />
-          <Property Name="wholesale_price" Type="double" />
           <Property Name="count_storage" Type="int" />
         </EntityType>
         <EntityType Name="spare_part">
@@ -77,6 +76,7 @@
           <Property Name="phone" Type="varchar" MaxLength="16" />
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="admin_status" Type="bit" />
         </EntityType>
         <EntityType Name="waybill">
           <Key>
@@ -183,15 +183,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="storepartsModelStoreContainer">
-          <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="device" EntityType="Self.device" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="images" EntityType="Self.images" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="storeparts" store:Type="Tables" />
-          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="brands" EntityType="Self.brands" Schema="" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" Schema="" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="" store:Type="Tables" />
+          <EntitySet Name="parts" EntityType="Self.parts" Schema="" store:Type="Tables" />
+          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="" store:Type="Tables" />
+          <EntitySet Name="store" EntityType="Self.store" Schema="" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="" store:Type="Tables" />
+          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="" store:Type="Tables" />
           <AssociationSet Name="fk_image_part" Association="Self.fk_image_part">
             <End Role="parts" EntitySet="parts" />
             <End Role="images" EntitySet="images" />
@@ -278,7 +278,6 @@
           <Property Name="IdSparePart" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="RetailPrice" Type="Double" />
-          <Property Name="WholesalePrice" Type="Double" />
           <Property Name="CountStorage" Type="Int32" />
           <NavigationProperty Name="Brand" Relationship="Self.fk_parts_brand" FromRole="parts" ToRole="brands" />
           <NavigationProperty Name="Images" Relationship="Self.fk_image_part" FromRole="parts" ToRole="images" />
@@ -315,6 +314,7 @@
           <Property Name="Phone" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AdminStatus" Type="Boolean" />
           <NavigationProperty Name="Orders" Relationship="Self.fk_orders_user" FromRole="users" ToRole="orders" />
         </EntityType>
         <Association Name="fk_parts_brand">
@@ -394,7 +394,7 @@
           <End Role="parts" Type="storepartsModel.Part" Multiplicity="*" />
         </Association>
         <EntityContainer Name="storepartsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Brands" EntityType="storepartsModel.Brand" />
+          <EntitySet Name="Brands1" EntityType="storepartsModel.Brand" />
           <EntitySet Name="Devices1" EntityType="storepartsModel.Device" />
           <EntitySet Name="Images1" EntityType="storepartsModel.Image" />
           <EntitySet Name="Orders1" EntityType="storepartsModel.Order" />
@@ -403,7 +403,7 @@
           <EntitySet Name="Stores1" EntityType="storepartsModel.Store" />
           <EntitySet Name="Users1" EntityType="storepartsModel.User" />
           <AssociationSet Name="fk_parts_brand" Association="Self.fk_parts_brand">
-            <End Role="brands" EntitySet="Brands" />
+            <End Role="brands" EntitySet="Brands1" />
             <End Role="parts" EntitySet="Parts1" />
           </AssociationSet>
           <AssociationSet Name="fk_sparepart_device" Association="Self.fk_sparepart_device">
@@ -437,7 +437,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="storepartsModelStoreContainer" CdmEntityContainer="storepartsEntities">
-          <EntitySetMapping Name="Brands">
+          <EntitySetMapping Name="Brands1">
             <EntityTypeMapping TypeName="storepartsModel.Brand">
               <MappingFragment StoreEntitySet="brands">
                 <ScalarProperty Name="Id" ColumnName="id" />
@@ -481,7 +481,6 @@
                 <ScalarProperty Name="IdSparePart" ColumnName="id_spare_part" />
                 <ScalarProperty Name="Description" ColumnName="description" />
                 <ScalarProperty Name="RetailPrice" ColumnName="retail_price" />
-                <ScalarProperty Name="WholesalePrice" ColumnName="wholesale_price" />
                 <ScalarProperty Name="CountStorage" ColumnName="count_storage" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -514,6 +513,7 @@
                 <ScalarProperty Name="Phone" ColumnName="phone" />
                 <ScalarProperty Name="Email" ColumnName="email" />
                 <ScalarProperty Name="Password" ColumnName="password" />
+                <ScalarProperty Name="AdminStatus" ColumnName="admin_status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

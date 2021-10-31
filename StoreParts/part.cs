@@ -7,11 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Linq;
-
 namespace StoreParts
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,7 +29,6 @@ namespace StoreParts
         public Nullable<int> IdSparePart { get; set; }
         public string Description { get; set; }
         public Nullable<double> RetailPrice { get; set; }
-        public Nullable<double> WholesalePrice { get; set; }
         public Nullable<int> CountStorage { get; set; }
     
         public virtual Brand Brand { get; set; }
