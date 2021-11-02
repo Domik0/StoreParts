@@ -16,48 +16,47 @@ using System.Windows.Shapes;
 namespace StoreParts.Page.Admin
 {
     /// <summary>
-    /// Interaction logic for AdminUserInfo.xaml
+    /// Interaction logic for AdminStoreInfo.xaml
     /// </summary>
-    public partial class AdminUserInfo : System.Windows.Controls.Page
+    public partial class AdminStoreInfo : System.Windows.Controls.Page
     {
-        private AdminUserPage page;
-        private User user;
+        private AdminStorePage page;
+        private Store store;
 
-        public AdminUserInfo(AdminUserPage page)
+        public AdminStoreInfo(AdminStorePage page)
         {
             this.page = page;
             InitializeComponent();
         }
 
-        public AdminUserInfo(AdminUserPage page, User user)
+        public AdminStoreInfo(AdminStorePage page, Store store)
         {
             this.page = page;
-            this.user = user;
+            this.store = store;
             InitializeComponent();
-            DataContext = user;
+            DataContext = store;
         }
 
         private void Back_Click(object sender, MouseButtonEventArgs e)
         {
             NavigationService.GoBack();
         }
-        
+
         private void SaveChange(object sender, RoutedEventArgs e)
         {
-            if (user == null)
+            if (store == null)
             {
-                user = new User()
+                store = new Store()
                 {
-                    Id = App.db.Users.Count() + 1
+                    Id = App.db.Stores.Count() + 1
                 };
-                App.db.Users.Add(user);
+                App.db.Stores.Add(store);
             }
-            user.Name = NameTextBox.Text;
-            user.Phone = PhoneTextBox.Text;
-            user.Email = EmailTextBox.Text;
-            user.Password = PasswordTextBox.Text;
-            user.AdminStatus = AdminStatusCheckBox.IsChecked;
-           
+            store.City = CityTextBox.Text;
+            store.Address = AddressTextBox.Text;
+            store.TimeWork = TimeWorkTextBox.Text;
+            store.Phone = PhoneTextBox.Text;
+
             App.db.SaveChanges();
             page.UpdateListView();
             NavigationService.GoBack();

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StoreParts.Page.Admin
 {
     /// <summary>
-    /// Interaction logic for AdminUserPage.xaml
+    /// Interaction logic for AdminStorePage.xaml
     /// </summary>
-    public partial class AdminUserPage : System.Windows.Controls.Page
+    public partial class AdminStorePage : System.Windows.Controls.Page
     {
-        public AdminUserPage()
+        public AdminStorePage()
         {
             InitializeComponent();
             UpdateListView();
@@ -28,39 +28,39 @@ namespace StoreParts.Page.Admin
 
         public void UpdateListView()
         {
-            UserListView.ItemsSource = null;
-            UserListView.ItemsSource = App.db.Users.ToList();
+            StoreListView.ItemsSource = null;
+            StoreListView.ItemsSource = App.db.Stores.ToList();
         }
 
         private void SearchTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Search.Text.Length == 0)
             {
-                UserListView.ItemsSource = App.db.Users.ToList();
+                StoreListView.ItemsSource = App.db.Stores.ToList();
             }
             else
             {
-                UserListView.ItemsSource = App.db.Users.ToList().Where(u => u.Name.ToLower().Contains(Search.Text.ToLower())
-                                                                   || u.Email.ToLower().Contains(Search.Text.ToLower())
-                                                                   || u.Phone.ToLower().Contains(Search.Text.ToLower())).ToList();
+                StoreListView.ItemsSource = App.db.Stores.ToList().Where(s => s.City.ToLower().Contains(Search.Text.ToLower())
+                                                                              || s.Address.ToLower().Contains(Search.Text.ToLower())
+                                                                              || s.Phone.ToLower().Contains(Search.Text.ToLower())).ToList();
             }
         }
-
-        private void AddUser(object sender, MouseButtonEventArgs e)
-        {
-            NavigationService.Navigate(new AdminUserInfo(this));
-        }
         
+        private void AddStore(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new AdminStoreInfo(this));
+        }
+
         private void Update(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AdminUserInfo(this, UserListView.SelectedItem as User));
+            NavigationService.Navigate(new AdminStoreInfo(this, StoreListView.SelectedItem as Store));
         }
 
         private void Delete(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Удалить?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                App.db.Users.Remove(UserListView.SelectedItem as User);
+                App.db.Stores.Remove(StoreListView.SelectedItem as Store);
                 App.db.SaveChanges();
             }
         }

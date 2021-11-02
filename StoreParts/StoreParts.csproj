@@ -131,6 +131,12 @@
     <Compile Include="Order.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Page\Admin\AdminBrandInfoWindow.xaml.cs">
+      <DependentUpon>AdminBrandInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminBrandPage.xaml.cs">
+      <DependentUpon>AdminBrandPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\Admin\AdminDeviceInfoWindow.xaml.cs">
       <DependentUpon>AdminDeviceInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -142,6 +148,12 @@
     </Compile>
     <Compile Include="Page\Admin\AdminSparePartInfoWindow.xaml.cs">
       <DependentUpon>AdminSparePartInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminStoreInfo.xaml.cs">
+      <DependentUpon>AdminStoreInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminStorePage.xaml.cs">
+      <DependentUpon>AdminStorePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\Admin\AdminUserInfo.xaml.cs">
       <DependentUpon>AdminUserInfo.xaml</DependentUpon>
@@ -231,6 +243,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Page\Admin\AdminBrandInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminBrandPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\Admin\AdminDeviceInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,6 +264,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page\Admin\AdminSparePartInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminStoreInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminStorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

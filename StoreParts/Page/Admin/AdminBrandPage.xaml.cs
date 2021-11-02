@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StoreParts.Page.Admin
 {
     /// <summary>
-    /// Interaction logic for AdminUserPage.xaml
+    /// Interaction logic for AdminBrandPage.xaml
     /// </summary>
-    public partial class AdminUserPage : System.Windows.Controls.Page
+    public partial class AdminBrandPage : System.Windows.Controls.Page
     {
-        public AdminUserPage()
+        public AdminBrandPage()
         {
             InitializeComponent();
             UpdateListView();
@@ -28,39 +28,39 @@ namespace StoreParts.Page.Admin
 
         public void UpdateListView()
         {
-            UserListView.ItemsSource = null;
-            UserListView.ItemsSource = App.db.Users.ToList();
+            BrandListView.ItemsSource = null;
+            BrandListView.ItemsSource = App.db.Brands.ToList();
         }
 
         private void SearchTextChanged(object sender, TextChangedEventArgs e)
         {
             if (Search.Text.Length == 0)
             {
-                UserListView.ItemsSource = App.db.Users.ToList();
+                BrandListView.ItemsSource = App.db.Brands.ToList();
             }
             else
             {
-                UserListView.ItemsSource = App.db.Users.ToList().Where(u => u.Name.ToLower().Contains(Search.Text.ToLower())
-                                                                   || u.Email.ToLower().Contains(Search.Text.ToLower())
-                                                                   || u.Phone.ToLower().Contains(Search.Text.ToLower())).ToList();
+                BrandListView.ItemsSource = App.db.Brands.ToList().Where(b => b.Title.ToLower().Contains(Search.Text.ToLower())).ToList();
             }
         }
 
-        private void AddUser(object sender, MouseButtonEventArgs e)
+        private void AddBrand(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AdminUserInfo(this));
+            AdminBrandInfoWindow ab = new AdminBrandInfoWindow(this);
+            ab.Show();
         }
-        
+
         private void Update(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AdminUserInfo(this, UserListView.SelectedItem as User));
+            AdminBrandInfoWindow ab = new AdminBrandInfoWindow(this, BrandListView.SelectedItem as Brand);
+            ab.Show();
         }
 
         private void Delete(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Удалить?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                App.db.Users.Remove(UserListView.SelectedItem as User);
+                App.db.Brands.Remove(BrandListView.SelectedItem as Brand);
                 App.db.SaveChanges();
             }
         }

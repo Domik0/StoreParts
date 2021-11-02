@@ -9,7 +9,7 @@
       Height="830" Width="1540"
       Title="AdminMainPage">
 
-    <Grid Background="#FFFFFF">
+    <Grid Background="#FFFFFF" Margin="0,0,0,30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="4"/>
@@ -25,11 +25,6 @@
                 <TextBlock Text="StoreParts" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"/>
                 <TextBlock Text="Админка" Margin="20,0,0,0" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"/>
             </StackPanel>
-
-            <Border MouseUp="ClientProfileClick" VerticalAlignment="Center" HorizontalAlignment="Right"
-                Width="80" CornerRadius="40" Height="80" Background="#ff561c" Margin="30">
-                <TextBlock x:Name="ClientProfile" Text="ВИ" FontSize="26" FontWeight="Medium" Foreground="#ffca3e" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
         </Grid>
 
         <Grid Grid.Column="0" Grid.Row="1">
@@ -40,19 +35,24 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenUserList">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Part" FontSize="35" FontWeight="Medium"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Order" FontSize="35" FontWeight="Medium"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenUserList">
                 <TextBlock Text="USER" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenDeviceSparePartList">
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenStoreList">
+                <TextBlock Text="Store" FontSize="35" FontWeight="Medium"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenDeviceSparePartList">
                 <TextBlock Text="Device and SparePart" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
-            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Юзеры" FontSize="35" FontWeight="Medium"/>
-            </StackPanel>
-            <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Магазины" FontSize="35" FontWeight="Medium"/>
+            <StackPanel Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenBrandList">
+                <TextBlock Text="Brand" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
         </Grid>
 
