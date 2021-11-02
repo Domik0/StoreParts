@@ -1,0 +1,29 @@
+﻿<Window x:Class="StoreParts.Page.Admin.AdminSparePartInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreParts.Page.Admin"
+        mc:Ignorable="d"
+        Title="AdminSparePartInfoWindow" Height="200" Width="250">
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Девайс:" FontSize="15" Margin="10,0,26,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="deviceComboBox" FontSize="15" Height="25" Width="120">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Название:" FontSize="15" Margin="10,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="SparePartTitle" Text="{Binding Title}" FontSize="15" Height="25" Width="120"/>
+            </StackPanel>
+            <Button Content="Сохранить" Margin="0,10" Click="Save"/>
+        </StackPanel>
+    </Grid>
+</Window>

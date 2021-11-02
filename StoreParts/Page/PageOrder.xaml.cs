@@ -90,17 +90,17 @@ namespace StoreParts.Page
             order.Store = ComboBoxStore.SelectedItem as Store;
             order.User = user;
             order.Parts = App.User.BasketParts;
-            App.db.Parts.Load();
+            order.DateTime = DateTime.Now;
             if (ComboBoxStore.SelectedItem != null)
             {
                 foreach (var item in ListBasket)
                 {
-                    App.db.Parts.First(p => p == item.part).CountStorage -= item.count;
+                    App.db.Parts.ToList().First(p => p == item.part).CountStorage -= item.count;
                 }
                 App.User.BasketParts = new List<Part>();
-                //App.db.Orders.Add(order);
-                //App.db.SaveChanges();
-
+                NavigationService.Navigate(new MainСategoryPage());
+                App.db.Orders.Add(order);
+                App.db.SaveChanges();
             }
             else
             {

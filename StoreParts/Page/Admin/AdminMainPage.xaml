@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Background="#ffca3e">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="45" Width="480" MouseUp="MainTitle_Click" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="45" Width="480" Orientation="Horizontal">
                 <TextBlock Text="StoreParts" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"/>
                 <TextBlock Text="Админка" Margin="20,0,0,0" Foreground="#ff561c" FontWeight="Bold" FontStyle="Italic" FontSize="50"/>
             </StackPanel>
@@ -45,8 +45,8 @@
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenUserList">
                 <TextBlock Text="USER" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Девайсы и запчасти" FontSize="35" FontWeight="Medium"/>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenDeviceSparePartList">
+                <TextBlock Text="Device and SparePart" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Юзеры" FontSize="35" FontWeight="Medium"/>

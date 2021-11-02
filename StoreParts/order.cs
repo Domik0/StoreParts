@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StoreParts
 {
     using System;
@@ -25,7 +27,23 @@ namespace StoreParts
         public Nullable<int> IdUser { get; set; }
         public string Comments { get; set; }
         public Nullable<bool> TypePayOnline { get; set; }
-    
+        public Nullable<System.DateTime> DateTime { get; set; }
+
+        [NotMapped]
+        public double? SumOrder
+        {
+            get
+            {
+                double? sum = 0.0;
+                foreach (var item in Parts)
+                {
+                    sum += item.RetailPrice;
+                }
+                return sum;
+            }
+        }
+
+
         public virtual Store Store { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

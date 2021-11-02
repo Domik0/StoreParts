@@ -26,7 +26,7 @@
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Учетная запись" Margin="40,0" 
                    FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid x:Name="GridInfo" Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -40,17 +40,17 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя пользователя:" FontSize="30" 
                        VerticalAlignment="Center"/>
             <TextBox x:Name="TitleName" Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=OneTime}" FontSize="30" Width="300"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center"  SelectionChanged="PasswordBoxSelectionChanged"/>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Телефон:" FontSize="30" 
                        VerticalAlignment="Center"/>
             <TextBox x:Name="TitlePhone" Grid.Column="1" Grid.Row="1" Text="{Binding Phone, Mode=OneTime}" FontSize="30" Width="300"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center"  SelectionChanged="PasswordBoxSelectionChanged"/>
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Почта:" FontSize="30" 
                        VerticalAlignment="Center"/>
             <TextBox x:Name="TitleEmail" Grid.Column="1" Grid.Row="2" Text="{Binding Email, Mode=OneTime}" FontSize="30" Width="300"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center"  SelectionChanged="PasswordBoxSelectionChanged"/>
             <Button Grid.Column="0" Grid.Row="3" Content="Сохранить изменения" FontSize="20"
-                    HorizontalAlignment="Center" Width="200" Height="35" Click="SaveInfo"/>
+                    HorizontalAlignment="Center" Width="230" Height="35" Click="SaveInfo"/>
             <TextBlock x:Name="StatusSaveProfile" Visibility="Hidden" Grid.Column="1" Grid.Row="3" Text="Сохранено!" FontSize="25" FontWeight="Medium" Foreground="Green"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
@@ -70,26 +70,130 @@
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Пароль:" FontSize="30" 
                        VerticalAlignment="Center"/>
             <TextBox x:Name="PasswordBox1" Grid.Column="1" Grid.Row="1" FontSize="30" Width="300"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center" SelectionChanged="PasswordBoxSelectionChanged"/>
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Подтверждение пароль:" FontSize="30" 
                        VerticalAlignment="Center"/>
             <TextBox x:Name="PasswordBox2" Grid.Column="1" Grid.Row="2" FontSize="30" Width="300"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center" SelectionChanged="PasswordBoxSelectionChanged"/>
             <Button Grid.Column="0" Grid.Row="3" Content="Изменить пароль" FontSize="20"
                     HorizontalAlignment="Center" Width="200" Height="35" Click="SavePassword"/>
             <TextBlock x:Name="StatusSavePasssword" Visibility="Hidden" Grid.Column="1" Grid.Row="3" Text="Сохранено!" FontSize="25" FontWeight="Medium" Foreground="Green"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="StatusNotSavePasssword" Visibility="Hidden" Grid.Column="1" Grid.Row="3" Text="Пароли не совпадают!" FontSize="25" FontWeight="Medium" Foreground="Red"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Background="Gray" Margin="0,50"/>
 
-
         <TextBlock Grid.Column="3" Grid.Row="0" Text="Последние заказы" Margin="40,0" 
                    FontSize="40" FontWeight="Bold" Foreground="#ff850a" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
         <StackPanel x:Name="NotKnowBox" Grid.Row = "1" Grid.Column="3" HorizontalAlignment="Left"
-                    VerticalAlignment="Center" Visibility="Visible">
+                    VerticalAlignment="Center" Visibility="Hidden">
             <Image Source="../Image/NotKnow.png" Width="150" Margin="100,0"/>
             <TextBlock Text="Список заказов пуст" HorizontalAlignment="Center" FontSize="25"/>
         </StackPanel>
+
+        <ListView Name="OrderListView" Grid.Row = "1" Grid.RowSpan="2" Grid.Column="3" BorderThickness="0" ScrollViewer.CanContentScroll="False" Visibility="Hidden">
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemOrders" TargetType="ListViewItem">
+                    <Grid MouseUp="OpenOrder">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding DateTime, ConverterCulture=ru}" Grid.Column="0"/>
+                        <TextBlock Text="Оплата картой:" Grid.Column="1" HorizontalAlignment="Right"/>
+                        <CheckBox IsChecked="{Binding TypePayOnline}" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TextBlockSum" Text="{Binding SumOrder, StringFormat='{} Сумма заказа: {0} ₽'}" Grid.Column="3" HorizontalAlignment="Left"/>
+
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightSkyBlue"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </Grid.Resources>
+                    </Grid>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemOrders}"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+
+        <Image x:Name="ImageBackOrder" Grid.Column="3" Grid.Row="1" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35"
+               Source="../Image/LeftArrow.png" MouseUp="BackOrder" Visibility="Hidden"/>
+
+        <ListView Grid.Row = "1" Grid.RowSpan="2" Grid.Column="3" Margin="0,45,0,0" BorderThickness="0" Height="500" VerticalAlignment="Top" Visibility="Hidden"
+                  x:Name="OrderPartsListView" ScrollViewer.CanContentScroll="False">
+            <ListView.Template>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemOrderParts" TargetType="ListViewItem">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding part.Title}" Width="600" Height="70" TextWrapping="Wrap" FontSize="17" Margin="18"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding part.RetailPrice, StringFormat='{}{0} ₽'}" Width="80" FontSize="20" FontWeight="Medium"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding count, StringFormat='{} x {0}'}" Width="80" FontSize="20" FontWeight="Medium"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemOrderParts}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    IsItemsHost="True" Orientation="Vertical">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <StackPanel x:Name="SumOrderstack" Grid.Row = "2" Grid.Column="3" VerticalAlignment="Bottom" Visibility="Hidden">
+            <StackPanel Height="2" Background="Gray" Width="350" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+            <TextBlock x:Name="SumOrder" Text="{Binding ., StringFormat='{}Итоговая сумма: {0} ₽'}" FontSize="25" FontWeight="Medium"
+                       Margin="0,0,50,50" HorizontalAlignment="Right"/>
+        </StackPanel>
+
+        <Border Grid.Column="3" Grid.Row="0" BorderThickness="2" BorderBrush="Red" CornerRadius="15" MouseUp="GoBackMainWindow"
+                Width="150" Height="50" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15">
+            <TextBlock Text="Выйти из аккаунта" TextWrapping="Wrap" FontSize="18" FontWeight="Medium" 
+                       TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="IndianRed"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
     </Grid>
 </Page>

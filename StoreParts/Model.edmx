@@ -36,6 +36,7 @@
           <Property Name="id_user" Type="int" />
           <Property Name="comments" Type="varchar" MaxLength="255" />
           <Property Name="type_pay_online" Type="bit" />
+          <Property Name="date_time" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="parts">
           <Key>
@@ -183,15 +184,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="storepartsModelStoreContainer">
-          <EntitySet Name="brands" EntityType="Self.brands" Schema="" store:Type="Tables" />
-          <EntitySet Name="device" EntityType="Self.device" Schema="" store:Type="Tables" />
-          <EntitySet Name="images" EntityType="Self.images" Schema="" store:Type="Tables" />
-          <EntitySet Name="orders" EntityType="Self.orders" Schema="" store:Type="Tables" />
-          <EntitySet Name="parts" EntityType="Self.parts" Schema="" store:Type="Tables" />
-          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="" store:Type="Tables" />
-          <EntitySet Name="store" EntityType="Self.store" Schema="" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="" store:Type="Tables" />
-          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="" store:Type="Tables" />
+          <EntitySet Name="brands" EntityType="Self.brands" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="parts" EntityType="Self.parts" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="spare_part" EntityType="Self.spare_part" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="store" EntityType="Self.store" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="storeparts" store:Type="Tables" />
+          <EntitySet Name="waybill" EntityType="Self.waybill" Schema="storeparts" store:Type="Tables" />
           <AssociationSet Name="fk_image_part" Association="Self.fk_image_part">
             <End Role="parts" EntitySet="parts" />
             <End Role="images" EntitySet="images" />
@@ -264,6 +265,7 @@
           <Property Name="IdUser" Type="Int32" />
           <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TypePayOnline" Type="Boolean" />
+          <Property Name="DateTime" Type="DateTime" />
           <NavigationProperty Name="Store" Relationship="Self.fk_orders_store" FromRole="orders" ToRole="store" />
           <NavigationProperty Name="User" Relationship="Self.fk_orders_user" FromRole="orders" ToRole="users" />
           <NavigationProperty Name="Parts" Relationship="Self.waybill" FromRole="orders" ToRole="parts" />
@@ -469,6 +471,7 @@
                 <ScalarProperty Name="IdUser" ColumnName="id_user" />
                 <ScalarProperty Name="Comments" ColumnName="comments" />
                 <ScalarProperty Name="TypePayOnline" ColumnName="type_pay_online" />
+                <ScalarProperty Name="DateTime" ColumnName="date_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

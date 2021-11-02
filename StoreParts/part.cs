@@ -11,9 +11,9 @@ namespace StoreParts
 {
     using System;
     using System.Linq;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-
+    using System.Collections.Generic;
+    
     public partial class Part
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

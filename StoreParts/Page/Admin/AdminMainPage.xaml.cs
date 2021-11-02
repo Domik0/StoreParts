@@ -30,14 +30,14 @@ namespace StoreParts.Page.Admin
             throw new NotImplementedException();
         }
 
-        private void MainTitle_Click(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void OpenUserList(object sender, MouseButtonEventArgs e)
         {
             MainFrame.Navigate(new AdminUserPage());
+        }
+
+        private void OpenDeviceSparePartList(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.Navigate(new AdminDeviceSparePartPage());
         }
     }
 }

@@ -81,7 +81,7 @@ namespace StoreParts.Page
         
         private void UpdateList(object sender, MouseButtonEventArgs e)
         {
-            if (search != null)
+            if (search == null)
             {
                 GeneratePartsCategory();
             }
@@ -111,12 +111,10 @@ namespace StoreParts.Page
                     PartsListView.ItemsSource = partsFilter;
                     break;
                 case "По убыванию":
-                    PartsListView.ItemsSource = partsFilter;
-                    view.SortDescriptions.Add(new SortDescription("RetailPrice", ListSortDirection.Descending));
+                    PartsListView.ItemsSource = partsFilter.OrderByDescending(p => p.RetailPrice);
                     break;
                 case "По возрастанияю":
-                    PartsListView.ItemsSource = partsFilter;
-                    view.SortDescriptions.Add(new SortDescription("RetailPrice", ListSortDirection.Ascending));
+                    PartsListView.ItemsSource = partsFilter.OrderBy(p => p.RetailPrice);
                     break;
             }
         }

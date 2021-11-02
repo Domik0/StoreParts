@@ -131,8 +131,20 @@
     <Compile Include="Order.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Page\Admin\AdminDeviceInfoWindow.xaml.cs">
+      <DependentUpon>AdminDeviceInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminDeviceSparePartPage.xaml.cs">
+      <DependentUpon>AdminDeviceSparePartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\Admin\AdminMainPage.xaml.cs">
       <DependentUpon>AdminMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminSparePartInfoWindow.xaml.cs">
+      <DependentUpon>AdminSparePartInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Admin\AdminUserInfo.xaml.cs">
+      <DependentUpon>AdminUserInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\Admin\AdminUserPage.xaml.cs">
       <DependentUpon>AdminUserPage.xaml</DependentUpon>
@@ -219,7 +231,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Page\Admin\AdminDeviceInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminDeviceSparePartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\Admin\AdminMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminSparePartInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Admin\AdminUserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -26,35 +26,44 @@ namespace StoreParts.Page.Admin
             UpdateListView();
         }
 
-        void UpdateListView()
+        public void UpdateListView()
         {
             UserListView.ItemsSource = null;
-            UserListView.ItemsSource = App.db.Users.ToList();
+            UserListView.ItemsSource = App.db.Users.ToList().Where(u => u != App.User).ToList();
         }
 
         private void SearchTextChanged(object sender, TextChangedEventArgs e)
         {
-            throw new NotImplementedException();
-        }
-         
-        private void ButtonSearchClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            if (Search.Text.Length == 0)
+            {
+                UserListView.ItemsSource = App.db.Users.ToList().Where(u => u != App.User).ToList();
+            }
+            else
+            {
+                UserListView.ItemsSource = App.db.Users.ToList().Where(u => u != App.User).ToList()
+                                                                .Where(u => u.Name.ToLower().Contains(Search.Text.ToLower())
+                                                                   || u.Email.ToLower().Contains(Search.Text.ToLower())
+                                                                   || u.Phone.ToLower().Contains(Search.Text.ToLower())).ToList();
+            }
         }
 
         private void AddUser(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.Navigate(new AdminUserInfo(this));
         }
         
         private void Update(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.Navigate(new AdminUserInfo(this, UserListView.SelectedItem as User));
         }
 
         private void Delete(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (MessageBox.Show("Удалить?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                App.db.Users.Remove(UserListView.SelectedItem as User);
+                App.db.SaveChanges();
+            }
         }
     }
 }
