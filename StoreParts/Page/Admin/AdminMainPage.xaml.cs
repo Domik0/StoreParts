@@ -49,5 +49,15 @@ namespace StoreParts.Page.Admin
         {
             MainFrame.Navigate(new AdminBrandPage());
         }
+
+        private void OpenPartList(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.Navigate(new AdminPartPage());
+        }
+
+        private void OpenOrderList(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.Navigate(new AdminOrderPage());
+        }
     }
 }

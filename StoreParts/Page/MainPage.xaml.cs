@@ -48,6 +48,7 @@ namespace StoreParts
             if (e.Key == Key.Return)
             {
                 MainFrame.Navigate(new PageListParts(FilterSearch.Text));
+                FilterSearch.Text = "";
             }
         }
 

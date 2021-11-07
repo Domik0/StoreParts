@@ -37,7 +37,7 @@
                             <ControlTemplate></ControlTemplate>
                         </Validation.ErrorTemplate>
                         <TextBox.Text>
-                            <Binding Path="PhoneNumber" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged"
+                            <Binding Path="Phone" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged"
                                      NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
                                     <validations:PhoneNumberRule></validations:PhoneNumberRule>
@@ -86,9 +86,9 @@
                             <ControlTemplate></ControlTemplate>
                         </Validation.ErrorTemplate>
                         <TextBox.Text>
-                            <Binding Path="Name" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                            <Binding Path="Email" ValidatesOnExceptions="True" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
-                                    <validations:FieldRule></validations:FieldRule>
+                                    <validations:EmailRule></validations:EmailRule>
                                     <ExceptionValidationRule/>
                                 </Binding.ValidationRules>
                             </Binding>

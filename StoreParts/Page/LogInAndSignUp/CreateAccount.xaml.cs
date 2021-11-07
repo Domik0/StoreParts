@@ -23,11 +23,13 @@ namespace StoreParts
     public partial class CreateAccount : System.Windows.Controls.Page
     {
         bool CustomCheckBoxArgBool = false;
-        bool selectRole;
+        private User user;
 
         public CreateAccount()
         {
+            user = new User();
             InitializeComponent();
+            DataContext = user;
         }
 
         private void ProceedClick(object sender, RoutedEventArgs e)
@@ -51,26 +53,28 @@ namespace StoreParts
             if (!CustomCheckBoxArgBool)
             {
                 RadioButtonAgrOff.Visibility = Visibility.Hidden;
+                MessageBox.Show("Необходимо согласится с условиями использования", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (!Validation.GetHasError(UserPhoneNumberText) && !Validation.GetHasError(UserNameText) && !Validation.GetHasError(ShowPasswordBoxText))
+            if (!Validation.GetHasError(UserPhoneNumberText) && !Validation.GetHasError(UserNameText) 
+            && !Validation.GetHasError(ShowPasswordBoxText) && !Validation.GetHasError(EmailText))
             {
-                //if (App.db.Clients.Where(c => c.PhoneNumber == UserPhoneNumberText.Text).Count() == 0 ||
-                //    App.db.Creators.Where(c => c.PhoneNumber == UserPhoneNumberText.Text).Count() == 0)
-                //{
-                //        client.Name = UserNameText.Text;
-                //        client.PhoneNumber = UserPhoneNumberText.Text;
-                //        client.Password = ShowPasswordBoxText.Text;
-                //        App.db.Clients.Add(client);
-                //        App.db.SaveChanges();
-                //        PageHoster ph = App.Current.MainWindow as PageHoster;
-                //        ph.NavigationService.Navigate(new SavePasswordPage(client));
-                //}
-                //else
-                //{
-                //    phoneBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
-                //    errorPhoneText.Text = "Аккаунт с таким номером телефона существует";
-                //}
+                if (App.db.Users.Where(u => u.Phone == UserPhoneNumberText.Text).Count() == 0)
+                {
+                    user.Name = UserNameText.Text;
+                    user.Email = EmailText.Text;
+                    user.Phone = UserPhoneNumberText.Text;
+                    user.Password = ShowPasswordBoxText.Text;
+                    App.db.Users.Add(user);
+                    App.db.SaveChanges();
+                    NavigationService.GoBack();
+                }
+                else
+                {
+                    phoneBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF0000");
+                    errorPhoneText.Text = "Аккаунт с таким номером телефона существует";
+                }
             }
             Keyboard.ClearFocus();
         }

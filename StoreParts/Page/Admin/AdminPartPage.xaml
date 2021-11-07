@@ -1,0 +1,81 @@
+﻿<Page x:Class="StoreParts.Page.Admin.AdminPartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StoreParts.Page.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1100"
+      Title="AdminPartPage">
+
+    <Grid Background="White" Width="1100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.ColumnSpan="1" BorderBrush="Black" BorderThickness="3" CornerRadius="10" Margin="15" HorizontalAlignment="Left" Width="300" Height="40">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5,0">
+                <TextBox x:Name="Search" BorderThickness="0" Width="260" Height="30" TextChanged="SearchTextChanged" FontSize="17" BorderBrush="Transparent" VerticalAlignment="Bottom"/>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Padding="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Path Data="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z" 
+                                  Fill="Black" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Image Grid.Row="0" x:Name="AddPartImage" Source="../../Image/Plus.png" Width="50" Margin="20,0" Height="50" MouseUp="AddPart" Cursor="Hand" HorizontalAlignment="Right"/>
+
+        <StackPanel Grid.Row="1" Margin="20,3" Background="Gray"/>
+
+        <ListView Name="PartListView" Grid.Row="2" Grid.Column="0" BorderThickness="0" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemParts" TargetType="ListViewItem">
+                    <Border Height="60" CornerRadius="10" Padding="10,0" MouseUp="OpenPart">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="800"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding FirstImage.ImagePath}" Width="60"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Brand.Title}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Title}" Margin="10,0" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="3" Text="{Binding CountStorage, StringFormat='{}На складе: {0}'}" FontWeight="Medium"/>
+
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </Grid.Resources>
+                        </Grid>
+                        <Border.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="LightSlateGray"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Resources>
+                    </Border>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemParts}"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+    </Grid>
+</Page>

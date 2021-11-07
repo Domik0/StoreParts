@@ -51,7 +51,7 @@ namespace StoreParts.Page
             InitializeComponent();
             BrandComboBox.ItemsSource = App.db.Brands.ToList();
             SparePartComboBox.ItemsSource = App.db.SpareParts.ToList();
-            TitleCategory.Text = $"Результат по поиску \"{TitleCategory}\"";
+            TitleCategory.Text = $"Результат по поиску \"{search}\"";
             parts = App.db.Parts.Where(p => p.Brand.Title.ToLower().Contains(search.ToLower()) 
                                                 || p.Title.ToLower().Contains(search.ToLower()) 
                                                 || p.Description.ToLower().Contains(search.ToLower()) 

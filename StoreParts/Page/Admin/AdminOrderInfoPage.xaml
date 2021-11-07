@@ -1,0 +1,133 @@
+﻿<Page x:Class="StoreParts.Page.Admin.AdminOrderInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StoreParts.Page.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1100"
+      Title="AdminOrderInfoPage">
+
+    <Grid Background="#FFFFFF">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Height="35"
+               Source="../../Image/LeftArrow.png" MouseUp="Back_Click"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Заказа" Margin="40,0" 
+                   FontSize="40" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Grid Height="600" Grid.Column="1" Grid.Row="1" x:Name="GridInfo">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя пользователя:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="ComboBoxUser" FontSize="20" Width="250"
+                      VerticalAlignment="Center" SelectionChanged="ComboBoxUserChange">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Телефон:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <TextBlock x:Name="TextBlockPhone" Grid.Column="1" Grid.Row="1" Text="{Binding Phone}" FontSize="30" Width="250"
+                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Почта:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <TextBlock x:Name="TextBlockEmail" Grid.Column="1" Grid.Row="2" Text="{Binding Email}" 
+                       FontSize="30" Width="250" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Тип оплаты:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ComboBoxTypePay" FontSize="20" Width="250"
+                               VerticalAlignment="Center" SelectedIndex="0"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Комментарий:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="TextBoxComments" FontSize="15" Width="250" Height="130"
+                               VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Выбор адреса:" FontSize="30" 
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" x:Name="ComboBoxStore" FontSize="20" Width="250"
+                              VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Address}" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" x:Name="TextBlockError" Text="Выберите пункт выдачи!" FontSize="20" FontWeight="Medium" Foreground="Red"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+            <Button Grid.Column="1" Grid.Row="6" Content="Сохранить" FontSize="20"
+                            HorizontalAlignment="Center" Width="200" Height="35" Click="SaveChange"/>
+        </Grid>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="Gray" Margin="0,50"/>
+
+
+        <TextBlock Grid.Column="3" Grid.Row="0" Text="Товаров" Margin="40,0" 
+                   FontSize="40" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Image Grid.Column="3" Grid.Row="0" x:Name="AddUserImage" Source="../../Image/Plus.png" Margin="15" Visibility="Hidden"
+               HorizontalAlignment="Right" Width="50" Height="50" MouseUp="AddPart" Cursor="Hand"/>
+
+
+        <ListView Grid.Column="3" Grid.Row = "1" BorderThickness="0" Height="500" VerticalAlignment="Top"
+                  x:Name="BasketPartsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding ListBasket, Mode=TwoWay}">
+            <ListView.Template>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
+            <ListView.ContextMenu>
+                <ContextMenu Name="menu">
+                    <MenuItem Header="Удалить" Click="Delete"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.Resources>
+                <ControlTemplate x:Key="ListViewItemBasketParts" TargetType="ListViewItem">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" Width="420" Height="70" TextWrapping="Wrap" FontSize="17" Margin="18"/>
+                        <TextBlock Text="{Binding RetailPrice, StringFormat='{}{0} ₽'}" Width="80" FontSize="20" FontWeight="Medium"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </StackPanel>
+                </ControlTemplate>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template" Value="{StaticResource ListViewItemBasketParts}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    IsItemsHost="True" Orientation="Vertical">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <StackPanel Grid.Column="3" Grid.Row = "1" VerticalAlignment="Bottom">
+            <StackPanel Height="2" Background="Gray" Width="350" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+            <TextBlock x:Name="TextBlockSumBasket" Text="{Binding SumBasket, StringFormat='{}Итоговая сумма: {0} ₽'}" FontSize="25" FontWeight="Medium"
+                       Margin="0,0,50,50" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </Grid>
+</Page>

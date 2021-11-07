@@ -47,7 +47,7 @@
             <TextBox x:Name="PhoneTextBox" Text="{Binding Phone, Mode=OneTime}" Grid.Column="1" Grid.Row="3"/>
 
             <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="Сохранить изменения" FontSize="20"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="35" Click="SaveChange"/>
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="35" Click="SaveChange"/>
 
             <Grid.Resources>
                 <Style TargetType="TextBlock">

@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreParts"
-        mc:Ignorable="d" Title="PageHoster"
+        mc:Ignorable="d" Title="StorePart"
         WindowState="Maximized"
         Height="830" Width="1440"
         MinHeight="830" MinWidth="1540"
         Source="Page/LogInAndSignUp/StartPage.xaml"
-        ShowsNavigationUI="False">
+        ShowsNavigationUI="False"
+        Icon="Image/logo.ico">
 </NavigationWindow>

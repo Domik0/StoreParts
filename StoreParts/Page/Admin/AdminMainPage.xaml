@@ -36,10 +36,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenPartList">
                 <TextBlock Text="Part" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenOrderList">
                 <TextBlock Text="Order" FontSize="35" FontWeight="Medium"/>
             </StackPanel>
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseUp="OpenUserList">
