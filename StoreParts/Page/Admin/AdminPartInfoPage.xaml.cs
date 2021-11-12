@@ -58,6 +58,13 @@ namespace StoreParts.Page.Admin
                 };
                 App.db.Parts.Add(part);
             }
+
+            App.db.Images.Remove(part.FirstImage);
+            App.db.Images.Add(new Image()
+            {
+                ImagePath = ImagePathTextBox.Text,
+                Part = part
+            });
             part.Title = TitleTextBox.Text;
             part.RetailPrice = Convert.ToDouble(RetailPriceTextBox.Text);
             part.CountStorage = Convert.ToInt32(CountStorageTextBox.Text);
